@@ -184,6 +184,15 @@ body {
   animation: fadeIn 1s ease-out;
 }
 
+/* Fix para dispositivos móviles */
+@media (max-width: 768px) {
+  .hero-section {
+    background-attachment: scroll;
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
