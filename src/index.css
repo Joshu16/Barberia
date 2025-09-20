@@ -184,12 +184,20 @@ body {
   animation: fadeIn 1s ease-out;
 }
 
-/* Fix para dispositivos móviles */
+/* Fix para dispositivos móviles - solo fondo */
 @media (max-width: 768px) {
   .hero-section {
-    background-attachment: scroll;
-    background-size: cover;
-    background-position: center center;
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+  }
+  
+  /* Asegurar que el pseudo-elemento también respete las reglas móviles */
+  .hero-section::before {
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center center !important;
   }
 }
 
