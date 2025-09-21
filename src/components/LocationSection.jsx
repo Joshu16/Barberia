@@ -20,7 +20,7 @@ const LocationSection = () => {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.123456789!2d-84.1234567!3d9.8765432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e1234567890%3A0x1234567890abcdef!2sCiudad%20Col%C3%B3n%2C%20San%20Jos%C3%A9%2C%20Costa%20Rica!5e0!3m2!1ses!2scr!4v1234567890"
               width="100%"
               height="400"
-              style={{ border: 0 }}
+              style={{ border: 0, borderRadius: '8px', boxShadow: '0 4px 20px rgba(255, 215, 0, 0.2)' }}
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

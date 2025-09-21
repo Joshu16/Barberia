@@ -74,7 +74,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-bottom">
-          <p>&copy; 2025 BARBERÍA EXCELENCIA. Todos los derechos reservados | Desarrollado por Roxana</p>
+          <p>&copy; 2025 BARBERÍA EXCELENCIA. Todos los derechos reservados | Desarrollado por BySaborío</p>
         </div>
       </div>
     </footer>
