@@ -34,9 +34,9 @@ const LocationSection = () => {
               <div>
                 <h3>Dirección</h3>
                 <address>
-                  Centro Comercial Plaza Real, Local 15<br />
-                  Ciudad Colón, San José, Costa Rica<br />
-                  Código Postal: 10701
+                  WQ74+RVR, Av. Central<br />
+                  San José, Cd Colón<br />
+                  Costa Rica
                 </address>
               </div>
             </div>
@@ -58,10 +58,10 @@ const LocationSection = () => {
               <div>
                 <h3>Horarios</h3>
                 <dl>
-                  <dt>Lunes - Sábado:</dt>
+                  <dt>Lunes - Viernes:</dt>
                   <dd>9:00 AM - 6:00 PM</dd>
-                  <dt>Domingo:</dt>
-                  <dd>10:00 AM - 4:00 PM</dd>
+                  <dt>Sábado - Domingo:</dt>
+                  <dd>Cerrado</dd>
                 </dl>
               </div>
             </div>

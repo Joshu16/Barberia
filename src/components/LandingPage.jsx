@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Header from './Header'
 import HeroSection from './HeroSection'
+import RatingSection from './RatingSection'
 import ServicesSection from './ServicesSection'
 import GallerySection from './GallerySection'
 import BarbersSection from './BarbersSection'
@@ -15,6 +16,7 @@ const LandingPage = () => {
     <div className="landing-page">
       <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <HeroSection />
+      <RatingSection />
       <ServicesSection />
       <GallerySection />
       <BarbersSection />
