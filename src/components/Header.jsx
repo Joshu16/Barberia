@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 
-const Header = ({ isMenuOpen, setIsMenuOpen }) => {
+const Header = ({ isMenuOpen, setIsMenuOpen, onAgendarClick }) => {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Header = ({ isMenuOpen, setIsMenuOpen }) => {
               <li><a href="#nosotros" className="nav-link" onClick={closeMenu} aria-label="Conoce a nuestro equipo">Nosotros</a></li>
               <li><a href="#galeria" className="nav-link" onClick={closeMenu} aria-label="Ver galería de trabajos">Galería</a></li>
               <li><a href="#contacto" className="nav-link" onClick={closeMenu} aria-label="Información de contacto">Contacto</a></li>
-              <li><a href="#contacto" className="btn-secondary" onClick={closeMenu} aria-label="Agendar cita">Agenda</a></li>
+              <li><button className="btn-secondary" onClick={() => { closeMenu(); onAgendarClick(); }} aria-label="Agendar cita">Agenda</button></li>
             </ul>
           </nav>
           

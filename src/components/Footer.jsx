@@ -1,13 +1,9 @@
-import { Facebook, Instagram, MessageCircle } from 'lucide-react'
+import { Facebook, Instagram } from 'lucide-react'
 import useIntersectionObserver from '../hooks/useIntersectionObserver'
 
 const Footer = () => {
   const [ref, isIntersecting] = useIntersectionObserver()
   
-  const handleWhatsAppClick = () => {
-    // Número real de WhatsApp
-    window.open('https://wa.me/50683823505', '_blank')
-  }
 
   return (
     <footer className={`footer ${isIntersecting ? 'animate' : ''}`} ref={ref} role="contentinfo">
@@ -62,19 +58,11 @@ const Footer = () => {
               </a>
             </div>
             
-            <button 
-              className="btn-primary footer-cta" 
-              onClick={handleWhatsAppClick}
-              aria-label="Contactar por WhatsApp"
-            >
-              <MessageCircle size={16} />
-              WhatsApp
-            </button>
           </div>
         </div>
         
         <div className="footer-bottom">
-          <p>&copy; 2025 BARBERÍA EXCELENCIA. Todos los derechos reservados | Desarrollado por BySaborío</p>
+          <p>&copy; 2025 BARBERÍA EXCELENCIA. Todos los derechos reservados | Desarrollado por BySaborio Digital Solutions</p>
         </div>
       </div>
     </footer>

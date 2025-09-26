@@ -42,7 +42,7 @@ const BarbersSection = () => {
                   alt={`${barber.name} - ${barber.title} en Barbería Excelencia Ciudad Colón`}
                   loading="lazy"
                   width="400"
-                  height="400"
+                  height="200"
                 />
               </div>
               <div className="barber-info">
@@ -52,7 +52,7 @@ const BarbersSection = () => {
             </article>
           ))}
           
-          <div className="recruitment-card recruitment-card-mobile">
+          <div className="recruitment-card">
             <div className="recruitment-image">
               <img src={sectionImages.recruitment} alt="Únete a nuestro equipo" />
             </div>

@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react'
 import useIntersectionObserver from '../hooks/useIntersectionObserver'
 import { sectionImages } from '../config/images'
+import BookingModal from './BookingModal'
 
 const ServicesSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   const [ref, isIntersecting] = useIntersectionObserver()
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
+  const [selectedService, setSelectedService] = useState(null)
   
   useEffect(() => {
     const checkMobile = () => {
@@ -79,6 +82,11 @@ const ServicesSection = () => {
     setCurrentSlide(index)
   }
 
+  const handleBookService = (service) => {
+    setSelectedService(service)
+    setIsBookingModalOpen(true)
+  }
+
   // En móvil mostramos solo una card, en desktop 3
   const visibleServices = isMobile 
     ? [allServices[currentSlide]]
@@ -116,6 +124,17 @@ const ServicesSection = () => {
                   <h3 className="service-name">{service.name}</h3>
                   <p className="service-description">{service.description}</p>
                   <div className="service-price" aria-label={`Precio: ${service.price}`}>{service.price}</div>
+                  <a 
+                    href="#"
+                    className="service-book-link"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleBookService(service)
+                    }}
+                  >
+                    <Calendar size={16} />
+                    Agendar Cita
+                  </a>
                 </div>
               </article>
             ))}
@@ -145,6 +164,12 @@ const ServicesSection = () => {
           }
         </div>
       </div>
+      
+      <BookingModal 
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        selectedService={selectedService}
+      />
     </section>
   )
 }

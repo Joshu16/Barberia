@@ -281,7 +281,6 @@ body {
   text-transform: uppercase;
   box-shadow: 0 12px 35px rgba(242, 147, 92, 0.4);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation: pulse 2s infinite;
   min-width: 200px;
 }
 
@@ -290,17 +289,24 @@ body {
   box-shadow: 0 16px 45px rgba(242, 147, 92, 0.5);
 }
 
-@keyframes pulse {
-  0% {
-    box-shadow: 0 12px 35px rgba(242, 147, 92, 0.4);
-  }
-  50% {
-    box-shadow: 0 12px 35px rgba(242, 147, 92, 0.6);
-  }
-  100% {
-    box-shadow: 0 12px 35px rgba(242, 147, 92, 0.4);
-  }
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
 }
+
+.hero-cta,
+.hero-services-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  height: 56px;
+  min-height: 56px;
+}
+
 
 .hero-image {
   display: none;
@@ -481,7 +487,7 @@ body {
 
 .service-card {
   width: 300px;
-  height: 400px;
+  min-height: 400px;
   background: var(--white);
   border-radius: 16px;
   overflow: hidden;
@@ -566,6 +572,22 @@ body {
   font-size: 1.5rem;
   font-weight: 800;
   color: var(--naranja-medio);
+}
+
+.service-book-link {
+  color: var(--naranja-medio);
+  text-decoration: underline;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1rem;
+  transition: color 0.3s ease;
+}
+
+.service-book-link:hover {
+  color: var(--naranja-claro);
 }
 
 /* Gallery Section */
@@ -991,6 +1013,78 @@ body {
   margin: 0;
 }
 
+/* Booking Modal */
+.booking-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 1rem;
+}
+
+.booking-modal {
+  background: var(--white);
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.booking-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.booking-modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.booking-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-light);
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.booking-modal-close:hover {
+  background: #f0f0f0;
+  color: var(--text-dark);
+}
+
+.booking-modal-content {
+  padding: 1.5rem;
+}
+
 /* Footer */
 .footer {
   background: var(--beige-claro);
@@ -1064,21 +1158,23 @@ body {
 }
 
 .footer-section .social-link {
-  background: var(--text-dark);
+  background: var(--naranja-medio);
   color: var(--white);
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(242, 147, 92, 0.3);
 }
 
 .footer-section .social-link:hover {
-  background: var(--naranja-medio);
-  transform: translateY(-2px);
+  background: var(--naranja-claro);
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(242, 147, 92, 0.4);
 }
 
 .footer-cta {
@@ -1152,7 +1248,7 @@ body {
   
   .service-card {
     width: 100%;
-    height: 350px;
+    min-height: 350px;
   }
   
   .services-btn {
@@ -1181,7 +1277,7 @@ body {
   
   .hero-title {
     font-size: 2.5rem;
-    line-height: 1.2;
+    line-height: 1.1;
   }
   
   .hero-subtitle {
@@ -1291,7 +1387,7 @@ body {
   .service-card {
     width: 100%;
     max-width: 350px;
-    height: 400px;
+    min-height: 400px;
   }
   
   .services-btn {
@@ -1323,6 +1419,7 @@ body {
 @media (max-width: 600px) {
   .hero-title {
     font-size: 2rem;
+    line-height: 1.1;
   }
   
   .section-title {
@@ -1355,7 +1452,7 @@ body {
   
   .service-card {
     width: 100%;
-    height: 350px;
+    min-height: 350px;
     margin: 0 0.5rem;
   }
   
@@ -1394,6 +1491,7 @@ body {
   .hero-title {
     font-size: 1.8rem;
     letter-spacing: -0.5px;
+    line-height: 1.1;
   }
   
   .hero-subtitle {
@@ -1442,7 +1540,7 @@ body {
   
   .service-card {
     width: 100%;
-    height: 300px;
+    min-height: 300px;
   }
   
   .services-btn {
@@ -1511,6 +1609,7 @@ body {
 @media (max-width: 360px) {
   .hero-title {
     font-size: 1.6rem;
+    line-height: 1.1;
   }
   
   .section-title {
@@ -1529,7 +1628,7 @@ body {
   
   .service-card {
     width: 100%;
-    height: 280px;
+    min-height: 280px;
     margin: 0 0.25rem;
   }
   
@@ -1589,6 +1688,7 @@ body {
   .hero-title {
     font-size: 2rem;
     margin-bottom: 1rem;
+    line-height: 1.1;
   }
   
   .hero-description {
