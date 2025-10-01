@@ -1,144 +1,113 @@
-import { useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import React, { useState } from 'react'
 import useIntersectionObserver from '../hooks/useIntersectionObserver'
-import { sectionImages } from '../config/images'
+import images from '../config/images'
+import './GallerySection.css'
 
 const GallerySection = () => {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isMobile, setIsMobile] = useState(false)
   const [ref, isIntersecting] = useIntersectionObserver()
-  
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  const galleryImages = [
-    {
-      id: 1,
-      src: sectionImages.gallery[0],
-      alt: 'Corte de cabello y arreglo de barba'
-    },
-    {
-      id: 2,
-      src: sectionImages.gallery[1],
-      alt: 'Barbero trabajando en la silla'
-    },
-    {
-      id: 3,
-      src: sectionImages.gallery[2],
-      alt: 'Servicio con fondo blanco'
-    },
-    {
-      id: 4,
-      src: sectionImages.gallery[3],
-      alt: 'Cliente sonriente satisfecho'
-    },
-    {
-      id: 5,
-      src: sectionImages.gallery[4],
-      alt: 'Herramientas de barbería'
-    },
-    {
-      id: 6,
-      src: sectionImages.gallery[5],
-      alt: 'Carlos Rodriguez - Barbero profesional'
-    },
-    {
-      id: 7,
-      src: sectionImages.gallery[6],
-      alt: 'Únete a nuestro equipo'
-    }
-  ]
+  const [selectedImage, setSelectedImage] = useState(null)
 
-  const nextSlide = () => {
-    if (isMobile) {
-      setCurrentSlide((prev) => (prev + 1) % galleryImages.length)
-    } else {
-      const maxSlide = galleryImages.length - 3
-      setCurrentSlide((prev) => (prev + 1) % (maxSlide + 1))
+  const openModal = (image, index) => {
+    setSelectedImage({ image, index })
+  }
+
+  const closeModal = () => {
+    setSelectedImage(null)
+  }
+
+  const nextImage = () => {
+    if (selectedImage) {
+      const nextIndex = (selectedImage.index + 1) % images.gallery.length
+      setSelectedImage({ image: images.gallery[nextIndex], index: nextIndex })
     }
   }
 
-  const prevSlide = () => {
-    if (isMobile) {
-      setCurrentSlide((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
-    } else {
-      const maxSlide = galleryImages.length - 3
-      setCurrentSlide((prev) => (prev - 1 + (maxSlide + 1)) % (maxSlide + 1))
+  const prevImage = () => {
+    if (selectedImage) {
+      const prevIndex = selectedImage.index === 0 ? images.gallery.length - 1 : selectedImage.index - 1
+      setSelectedImage({ image: images.gallery[prevIndex], index: prevIndex })
     }
   }
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index)
-  }
-
-  // En móvil mostramos solo una imagen, en desktop 3
-  const visibleImages = isMobile 
-    ? [galleryImages[currentSlide]]
-    : galleryImages.slice(currentSlide, currentSlide + 3)
 
   return (
-    <section className={`gallery-section ${isIntersecting ? 'animate' : ''}`} id="galeria" ref={ref} aria-labelledby="gallery-title">
+    <section 
+      id="gallery" 
+      ref={ref}
+      className={`gallery-section ${isIntersecting ? 'fade-in-up' : ''}`}
+    >
       <div className="container">
-        <header className="section-header">
-          <h2 id="gallery-title" className="section-title">DESCUBRE NUESTROS TRABAJOS</h2>
+        {/* Section Header */}
+        <div className="section-header">
+          <h2 className="section-title">Galería de Trabajos</h2>
           <p className="section-description">
-            Nuestro equipo está dedicado a su oficio. Técnicas y estilos actualizados para el mejor servicio de barbería en Ciudad Colón.
+            Descubre la calidad de nuestro trabajo a través de nuestra galería de cortes y afeitados.
           </p>
-        </header>
-        
-        <div className="gallery-container">
-          <button className="gallery-btn gallery-prev" onClick={prevSlide}>
-            <ChevronLeft size={24} />
-          </button>
-          
-          <div className="gallery-grid">
-            {visibleImages.map((image) => (
-              <figure key={image.id} className="gallery-item">
+        </div>
+
+        {/* Gallery Grid */}
+        <div className="gallery-grid">
+          {images.gallery.map((image, index) => (
+            <div 
+              key={index}
+              className={`gallery-item ${isIntersecting ? 'fade-in-up' : ''}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+              onClick={() => openModal(image, index)}
+            >
+              <div className="gallery-image">
                 <img 
-                  src={image.src} 
-                  alt={`${image.alt} - Barbería Excelencia Ciudad Colón`}
+                  src={image} 
+                  alt={`Trabajo ${index + 1}`}
                   loading="lazy"
-                  width="500"
-                  height="500"
                 />
-              </figure>
-            ))}
-          </div>
-          
-          <button className="gallery-btn gallery-next" onClick={nextSlide}>
-            <ChevronRight size={24} />
+                <div className="gallery-overlay">
+                  <div className="gallery-icon">🔍</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Call to Action */}
+        <div className="gallery-cta">
+          <p className="cta-text">
+            ¿Te gusta lo que ves? Agenda tu cita y experimenta la diferencia.
+          </p>
+          <button className="btn btn-primary">
+            Reservar Cita
           </button>
         </div>
-        
-        <div className="gallery-dots">
-          {isMobile 
-            ? galleryImages.map((_, index) => (
-                <button
-                  key={index}
-                  className={`gallery-dot ${currentSlide === index ? 'active' : ''}`}
-                  onClick={() => goToSlide(index)}
-                />
-              ))
-            : Array.from({ length: galleryImages.length - 2 }).map((_, index) => (
-                <button
-                  key={index}
-                  className={`gallery-dot ${currentSlide === index ? 'active' : ''}`}
-                  onClick={() => goToSlide(index)}
-                />
-              ))
-          }
+      </div>
+
+      {/* Modal */}
+      {selectedImage && (
+        <div className="gallery-modal" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>×</button>
+            <button className="modal-prev" onClick={prevImage}>‹</button>
+            <button className="modal-next" onClick={nextImage}>›</button>
+            <img 
+              src={selectedImage.image} 
+              alt={`Trabajo ${selectedImage.index + 1}`}
+              className="modal-image"
+            />
+            <div className="modal-info">
+              <span className="modal-counter">
+                {selectedImage.index + 1} / {images.gallery.length}
+              </span>
+            </div>
+          </div>
         </div>
+      )}
+
+      {/* Decorative Elements */}
+      <div className="gallery-decorations">
+        <div className="decoration decoration-1"></div>
+        <div className="decoration decoration-2"></div>
       </div>
     </section>
   )
 }
 
 export default GallerySection
+
+

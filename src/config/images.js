@@ -1,63 +1,51 @@
-// Configuración de imágenes para Barbería Excelencia
-// Solo las 6 imágenes específicas que el cliente quiere usar
-
-export const barberiaImages = {
-  // 1. Corte de cabello arreglo de barba - FUNCIONA
-  corteBarba: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&h=300&fit=crop&q=80',
+// Image configuration for the barbershop
+export const images = {
+  // Hero section
+  hero: {
+    background: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80',
+    alt: 'Barbero profesional trabajando en un cliente'
+  },
   
-  // 2. La de la silla - FUNCIONA
-  silla: 'https://images.unsplash.com/photo-1503951914875-452162b0f3d1?w=400&h=300&fit=crop&q=80',
+  // Services
+  services: {
+    haircut: 'https://images.unsplash.com/photo-1503951914875-452162b0f3d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    shave: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80',
+    beard: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80',
+    treatment: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
+    combo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
+  },
   
-  // 3. La de fondo blanco - FUNCIONA
-  fondoBlanco: 'https://images.unsplash.com/photo-1621605815971-fa8b7fc8223d?w=400&h=300&fit=crop&q=80',
-  
-  // 4. La del negrito sonriente - FUNCIONA
-  negritoSonriente: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&h=300&fit=crop&q=80',
-  
-  // 5. La de las brochas - FUNCIONA
-  brochas: 'https://images.unsplash.com/photo-1594736797933-d0c2b0a0b0a0?w=400&h=300&fit=crop&q=80',
-  
-  // 6. Carlos Rodriguez - FUNCIONA
-  carlosRodriguez: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&q=80',
-  
-  // 7. La de te gustaría unirte - FUNCIONA
-  unirseEquipo: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=400&fit=crop&q=80'
-}
-
-// Array de imágenes para usar en carruseles
-export const imageArray = [
-  barberiaImages.corteBarba,
-  barberiaImages.silla,
-  barberiaImages.fondoBlanco,
-  barberiaImages.negritoSonriente,
-  barberiaImages.brochas,
-  barberiaImages.carlosRodriguez,
-  barberiaImages.unirseEquipo
-]
-
-// Imágenes para diferentes secciones - SOLO LAS QUE FUNCIONAN
-export const sectionImages = {
-  hero: barberiaImages.corteBarba,    // Hero con la imagen original (corte de cabello arreglo de barba)
-  services: [
-    barberiaImages.corteBarba,        // 1. Corte de Cabello
-    barberiaImages.corteBarba,        // 2. Afeitado Clásico
-    barberiaImages.corteBarba,        // 3. Corte + Afeitado
-    barberiaImages.corteBarba,        // 4. Arreglo de Barba
-    barberiaImages.corteBarba         // 5. Tratamiento Facial
-  ],
+  // Gallery
   gallery: [
-    barberiaImages.corteBarba,        // 1. Corte de cabello y arreglo de barba
-    barberiaImages.corteBarba,        // 2. Corte de cabello y arreglo de barba
-    barberiaImages.corteBarba,        // 3. Corte de cabello y arreglo de barba
-    barberiaImages.corteBarba,        // 4. Corte de cabello y arreglo de barba
-    barberiaImages.corteBarba,        // 5. Corte de cabello y arreglo de barba
-    barberiaImages.corteBarba,        // 6. Corte de cabello y arreglo de barba
-    barberiaImages.unirseEquipo       // 7. Únete a nuestro equipo (se queda igual)
+    'https://images.unsplash.com/photo-1503951914875-452162b0f3d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    'https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80',
+    'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80',
+    'https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
+    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    'https://images.unsplash.com/photo-1621605815971-fa4df1b58058?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
   ],
-  team: [
-    barberiaImages.carlosRodriguez,   // 1. Carlos Rodriguez (Barbero Maestro)
-    barberiaImages.carlosRodriguez,   // 2. María González
-    barberiaImages.carlosRodriguez    // 3. Juan Pérez
-  ],
-  recruitment: barberiaImages.unirseEquipo  // Se queda igual
+  
+  // Barbers
+  barbers: {
+    carlos: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    miguel: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    andres: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    luis: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
+  },
+  
+  // Icons
+  icons: {
+    phone: '📞',
+    location: '📍',
+    clock: '🕒',
+    star: '⭐',
+    scissors: '✂️',
+    razor: '🪒',
+    comb: '💇',
+    hair: '💇‍♂️'
+  }
 }
+
+export default images
+
+

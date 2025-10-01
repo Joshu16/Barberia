@@ -1,0 +1,403 @@
+/* Barbers Section Styles */
+.barbers-section {
+  padding: 100px 0;
+  background-color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-black);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.section-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Barbers Grid */
+.barbers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+/* Barber Card */
+.barber-card {
+  background: var(--primary-black);
+  border: 2px solid var(--accent-gold);
+  border-radius: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.barber-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px var(--shadow-gold);
+}
+
+/* Barber Image */
+.barber-image {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+.barber-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.barber-card:hover .barber-image img {
+  transform: scale(1.05);
+}
+
+.barber-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 1rem;
+}
+
+.barber-card:hover .barber-overlay {
+  opacity: 1;
+}
+
+.barber-info-overlay {
+  text-align: center;
+  color: var(--text-white);
+}
+
+.barber-name-overlay {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--accent-gold);
+}
+
+.barber-title-overlay {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  margin: 0;
+  color: var(--text-light);
+}
+
+/* Barber Content */
+.barber-content {
+  padding: 2rem;
+  color: var(--text-white);
+}
+
+.barber-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.barber-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.01em;
+}
+
+.barber-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: var(--text-light);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Barber Details */
+.barber-details {
+  margin-bottom: 1.5rem;
+}
+
+.barber-specialty,
+.barber-experience {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+.detail-icon {
+  font-size: 1rem;
+  color: var(--accent-gold);
+}
+
+/* Barber Social */
+.barber-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--accent-gold);
+  color: var(--accent-gold);
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+.social-link:hover {
+  background: var(--accent-gold);
+  color: var(--primary-black);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-gold);
+}
+
+/* Barber Button */
+.barber-btn {
+  width: 100%;
+  padding: 12px 20px;
+  background: var(--accent-gold);
+  color: var(--primary-black);
+  border: 2px solid var(--accent-gold);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.barber-btn:hover {
+  background: var(--accent-gold-dark);
+  border-color: var(--accent-gold-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-gold);
+}
+
+/* Call to Action */
+.barbers-cta {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--light-gray);
+  border: 2px solid var(--accent-gold);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Decorative Elements */
+.barbers-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.decoration {
+  position: absolute;
+  opacity: 0.05;
+  background: var(--accent-gold);
+  border-radius: 50%;
+}
+
+.decoration-1 {
+  width: 200px;
+  height: 200px;
+  top: 15%;
+  right: 8%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.decoration-2 {
+  width: 150px;
+  height: 150px;
+  bottom: 25%;
+  left: 8%;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(180deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .barbers-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .barbers-section {
+    padding: 80px 0;
+  }
+  
+  .barbers-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-description {
+    font-size: 1rem;
+  }
+  
+  .barber-image {
+    height: 250px;
+  }
+  
+  .barber-content {
+    padding: 1.5rem;
+  }
+  
+  .barber-name {
+    font-size: 1.3rem;
+  }
+  
+  .barber-title {
+    font-size: 0.9rem;
+  }
+  
+  .barbers-cta {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .barbers-section {
+    padding: 60px 0;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .barber-image {
+    height: 200px;
+  }
+  
+  .barber-content {
+    padding: 1rem;
+  }
+  
+  .barber-name {
+    font-size: 1.2rem;
+  }
+  
+  .barber-title {
+    font-size: 0.8rem;
+  }
+  
+  .barber-specialty,
+  .barber-experience {
+    font-size: 0.9rem;
+  }
+  
+  .social-link {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .barber-btn {
+    font-size: 0.9rem;
+    padding: 10px 15px;
+  }
+  
+  .barbers-cta {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Animation */
+.barbers-section.fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.barber-card.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+

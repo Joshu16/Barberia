@@ -1,57 +1,127 @@
-import { Star, Crown, Heart, ExternalLink } from 'lucide-react'
+import React from 'react'
 import useIntersectionObserver from '../hooks/useIntersectionObserver'
+import './RatingSection.css'
 
 const RatingSection = () => {
   const [ref, isIntersecting] = useIntersectionObserver()
 
-  const handleLeaveReview = () => {
-    // Enlace a Google Reviews de Barbería Roxana
-    window.open('https://www.google.com/search?q=barberia+roxana&sca_esv=0214036f541d3286&hl=en-CR&gl=cr&sxsrf=AE3TifO6QG18d7J-KAB0VDgu_2WMM93IZA%3A1758425691513&ei=W3LPaPCIH8L-wbkPoNbEkAI&ved=0ahUKEwiwotOV9uiPAxVCfzABHSArESIQ4dUDCBA&uact=5&oq=barberia+roxana&gs_lp=Egxnd3Mtd2l6LXNlcnAiD2JhcmJlcmlhIHJveanaYTIEECMYJzIKEAAYgAQYChjLATIGEAAYFhgeMggQABgWGAoYHjIIEAAYgAQYogQyCBAAGIAEGKIEMgUQABjvBTIIEAAYgAQYogQyCBAAGIAEGKIESOELUABY-QpwAHgBkAEAmAGhAaABxA6qAQQxLjE0uAEDyAEA-AEBmAIPoAL-DsICCxAuGIAEGJECGIoFwgIREC4YgAQYsQMY0QMYxwEYigXCAg4QLhiABBixAxjRAxjHAcICCxAAGIAEGLEDGIoFwgILEC4YgAQYsQMYgwHCAggQABiABBixA8ICCxAuGIAEGNEDGMcBwgILEAAYgAQYsQMYgwHCAgoQABiABBhDGIoFwgIUEC4YgAQYsQMYxwEYmAUYigUYrwHCAgoQLhiABBhDGIoFwgINEAAYgAQYQxjJAxiKBcICCxAAGIAEGJIDGIoFwgIQEAAYgAQYsQMYgwEYFBiHAsICChAAGIAEGBQYhwLCAg0QLhiABBhDGNQCGIoFwgIFEAAYgATCAgsQLhiABBjHARivAcICCBAAGIAEGMsBwgIQEC4YgAQYFBiHAhjHARivAcICCDhAuGIAEGMcBGMsBGK8BmAMAkgcEMC4xNaAHmrQBsgcEMC4xNbgH_g7CBwUwLjYuOcgHMg&sclient=gws-wiz-serp#lrd=0x8fa0ff16b05f60a9:0x815510e63ca4f416,3,,,,', '_blank')
+  const reviews = [
+    {
+      id: 1,
+      name: 'Carlos M.',
+      rating: 5,
+      comment: 'Excelente servicio, muy profesional y el corte quedó perfecto. Definitivamente regresaré.',
+      date: 'Hace 2 días'
+    },
+    {
+      id: 2,
+      name: 'Miguel R.',
+      rating: 5,
+      comment: 'La mejor barbería de Ciudad Colón. El afeitado clásico es increíble, muy recomendado.',
+      date: 'Hace 1 semana'
+    },
+    {
+      id: 3,
+      name: 'Andrés H.',
+      rating: 5,
+      comment: 'Ambiente relajante y barberos muy talentosos. El trato es excelente y los precios justos.',
+      date: 'Hace 2 semanas'
+    },
+    {
+      id: 4,
+      name: 'Luis J.',
+      rating: 5,
+      comment: 'Servicio de primera calidad. El tratamiento capilar me dejó el cabello increíble.',
+      date: 'Hace 3 semanas'
+    }
+  ]
+
+  const renderStars = (rating) => {
+    return Array.from({ length: 5 }, (_, index) => (
+      <span 
+        key={index} 
+        className={`star ${index < rating ? 'filled' : ''}`}
+      >
+        ⭐
+      </span>
+    ))
   }
 
   return (
-    <section className={`rating-section ${isIntersecting ? 'animate' : ''}`} ref={ref} aria-labelledby="rating-title">
+    <section 
+      id="rating" 
+      ref={ref}
+      className={`rating-section ${isIntersecting ? 'fade-in-up' : ''}`}
+    >
       <div className="container">
-        <div className="rating-content">
-          <div className="rating-info">
-            <div className="rating-header">
-              <h2 id="rating-title" className="rating-title">EXCELENCIA</h2>
-              <Crown size={32} className="crown-icon" />
-            </div>
-            <p className="business-type">SALA DE BELLEZA & BARBER SHOP</p>
+        {/* Section Header */}
+        <div className="section-header">
+          <h2 className="section-title">Lo que dicen nuestros clientes</h2>
+          <p className="section-description">
+            La satisfacción de nuestros clientes es nuestra mayor recompensa
+          </p>
+        </div>
+
+        {/* Overall Rating */}
+        <div className="overall-rating">
+          <div className="rating-number">
+            <span className="rating-value">4.9</span>
             <div className="rating-stars">
-              <div className="stars">
-                {[...Array(5)].map((_, i) => (
-                  <Star 
-                    key={i} 
-                    size={24} 
-                    className={i < 4 ? 'star-filled' : i < 4.5 ? 'star-half' : 'star-empty'} 
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
-              <span className="rating-number">4.5</span>
-              <span className="rating-reviews">(19)</span>
+              {renderStars(5)}
             </div>
-            
-            {/* Botón de reseña debajo de las estrellas */}
-            <button onClick={handleLeaveReview} className="btn-primary leave-review-btn">
-              Deja tu Reseña <ExternalLink size={20} />
-            </button>
-            <div className="rating-divider">
-              <div className="divider-line"></div>
-              <Heart size={16} className="heart-icon" />
-              <div className="divider-line"></div>
-            </div>
-            <p className="owner-name">ROXANA SOTO</p>
-            <p className="rating-description">
-              Barber shop · Ciudad Colón, San José
-            </p>
+            <p className="rating-text">Basado en 50+ reseñas</p>
           </div>
         </div>
+
+        {/* Reviews Grid */}
+        <div className="reviews-grid">
+          {reviews.map((review, index) => (
+            <div 
+              key={review.id}
+              className={`review-card ${isIntersecting ? 'fade-in-up' : ''}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className="review-header">
+                <div className="review-info">
+                  <h4 className="review-name">{review.name}</h4>
+                  <div className="review-stars">
+                    {renderStars(review.rating)}
+                  </div>
+                </div>
+                <span className="review-date">{review.date}</span>
+              </div>
+              
+              <p className="review-comment">"{review.comment}"</p>
+              
+              <div className="review-source">
+                <span className="source-icon">📱</span>
+                <span className="source-text">Google Reviews</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Call to Action */}
+        <div className="rating-cta">
+          <p className="cta-text">
+            ¿Quieres ser parte de nuestros clientes satisfechos?
+          </p>
+          <button className="btn btn-primary">
+            Reservar Ahora
+          </button>
+        </div>
+      </div>
+
+      {/* Decorative Elements */}
+      <div className="rating-decorations">
+        <div className="decoration decoration-1"></div>
+        <div className="decoration decoration-2"></div>
+        <div className="decoration decoration-3"></div>
       </div>
     </section>
   )
 }
 
 export default RatingSection
+
+

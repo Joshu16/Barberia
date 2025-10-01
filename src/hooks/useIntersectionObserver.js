@@ -11,8 +11,8 @@ const useIntersectionObserver = (options = {}) => {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        setIsIntersecting(entry.isIntersecting)
         if (entry.isIntersecting && !hasIntersected) {
-          setIsIntersecting(true)
           setHasIntersected(true)
         }
       },
@@ -30,7 +30,9 @@ const useIntersectionObserver = (options = {}) => {
     }
   }, [hasIntersected, options])
 
-  return [ref, isIntersecting]
+  return [ref, isIntersecting, hasIntersected]
 }
 
 export default useIntersectionObserver
+
+
