@@ -19,6 +19,37 @@ const LandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Animación del quote que se repite
+  useEffect(() => {
+    const firstQuote = document.querySelector('.quote-first[data-animate="true"]');
+    const secondQuote = document.querySelector('.quote-second[data-animate="true"]');
+    
+    if (firstQuote && secondQuote) {
+      const startAnimation = () => {
+        // Mostrar primera frase
+        firstQuote.classList.add('animate');
+        secondQuote.classList.remove('animate');
+        
+        // Después de 6 segundos (4s escritura + 2s pausa)
+        setTimeout(() => {
+          firstQuote.classList.remove('animate');
+          secondQuote.classList.add('animate');
+          
+          // Después de 3 segundos más, ocultar segunda y repetir
+          setTimeout(() => {
+            secondQuote.classList.remove('animate');
+            setTimeout(() => {
+              startAnimation(); // Repetir
+            }, 1000); // Esperar 1 segundo antes de repetir
+          }, 3000);
+        }, 6000); // 4s escritura + 2s pausa
+      };
+      
+      // Iniciar la animación
+      startAnimation();
+    }
+  }, []);
+
   // Datos de servicios
   const services = [
     {
@@ -90,6 +121,7 @@ const LandingPage = () => {
               <ul className="nav-list">
                 <li><a href="#about" className="nav-link">Nosotros</a></li>
                 <li><a href="#services" className="nav-link">Servicios</a></li>
+                <li><a href="#gallery" className="nav-link">Galería</a></li>
                 <li><a href="#contact" className="nav-link">Contacto</a></li>
                 <li><a href="#barbers" className="nav-link">Barberos</a></li>
                 <li><a href="#articles" className="nav-link">Artículos</a></li>
@@ -125,6 +157,16 @@ const LandingPage = () => {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quote Section */}
+      <section className="quote-section">
+        <div className="container">
+          <div className="quote-container">
+            <p className="quote-text quote-first" data-animate="true">Tu peinado es tu carta de presentación.</p>
+            <p className="quote-text quote-second" data-animate="true">Úsalo bien.</p>
           </div>
         </div>
       </section>
@@ -205,6 +247,46 @@ const LandingPage = () => {
                 className={`pagination-dot ${index === activeSlide ? 'active' : ''}`}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section id="gallery" className="gallery-section">
+        <div className="container">
+          <div className="gallery-header">
+            <h2 className="gallery-title">Nuestro trabajo habla por si solo</h2>
+          </div>
+          
+          <div className="gallery-masonry">
+            <div className="gallery-item gallery-item-large">
+              <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&h=400&fit=crop&q=80" alt="Corte clásico" />
+            </div>
+            <div className="gallery-item">
+              <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=200&h=200&fit=crop&q=80" alt="Barba premium" />
+            </div>
+            <div className="gallery-item">
+              <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=200&h=200&fit=crop&q=80" alt="Corte moderno" />
+            </div>
+            <div className="gallery-item gallery-item-tall">
+              <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=200&h=400&fit=crop&q=80" alt="Afeitado clásico" />
+            </div>
+            <div className="gallery-item">
+              <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=200&h=200&fit=crop&q=80" alt="Tratamiento capilar" />
+            </div>
+            <div className="gallery-item">
+              <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=200&h=200&fit=crop&q=80" alt="Corte + Barba" />
+            </div>
+            <div className="gallery-item gallery-item-tall">
+              <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=200&h=400&fit=crop&q=80" alt="Estilo premium" />
+            </div>
+            <div className="gallery-item gallery-item-large">
+              <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=400&fit=crop&q=80" alt="Experiencia completa" />
+            </div>
+          </div>
+          
+          <div className="gallery-cta">
+            <p className="gallery-cta-text">¿Querés un estilo así? Reservá tu cita</p>
           </div>
         </div>
       </section>
