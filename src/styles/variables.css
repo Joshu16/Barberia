@@ -1,0 +1,44 @@
+/* CSS Variables - Manteniendo colores exactos del diseño actual */
+:root {
+  /* Colores principales */
+  --primary-orange: #f0b35b;
+  --primary-orange-hover: #d49a4a;
+  --primary-orange-light: #f5c47a;
+  
+  /* Colores de fondo */
+  --black: #000000;
+  --white: #ffffff;
+  --primary-dark: #2c2c2c;
+  --primary-charcoal: #1a1a1a;
+  
+  /* Colores de texto */
+  --text-white: #ffffff;
+  --text-light: rgba(255, 255, 255, 0.9);
+  --text-gray: #cccccc;
+  --text-dark: #333333;
+  
+  /* Colores específicos del diseño */
+  --gold: #d4af37;
+  --light-gray: #e6e6e6;
+  --medium-gray: #888888;
+  
+  /* Spacing */
+  --container-max-width: 1200px;
+  --section-padding: 80px 0;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Border Radius */
+  --radius-small: 4px;
+  --radius-medium: 6px;
+  --radius-large: 8px;
+  --radius-xl: 12px;
+  
+  /* Shadows */
+  --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --shadow-heavy: 0 8px 30px rgba(0, 0, 0, 0.2);
+}

@@ -1,3 +1,6 @@
+/* Import variables */
+@import './styles/variables.css';
+
 /* Reset básico - los estilos principales están en main.css */
 * {
   margin: 0;
