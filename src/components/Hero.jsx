@@ -1,4 +1,5 @@
 import React from 'react';
+import './Hero.css';
 
 const Hero = () => {
   return (
@@ -12,7 +13,7 @@ const Hero = () => {
               Disfruta de la experiencia de grooming más relajada y profesional cada vez que entres a nuestra barbería.
             </p>
             <div className="hero-buttons">
-              <a href="#appointment" className="btn-primary">
+              <a href="#appointment" className="btn-navbar">
                 Agendar
               </a>
               <a href="#services" className="btn-secondary">

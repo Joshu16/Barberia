@@ -1,5 +1,6 @@
 /* Import variables */
 @import './styles/variables.css';
+@import './styles/shared.css';
 
 /* Reset básico - los estilos principales están en main.css */
 * {

@@ -17,17 +17,6 @@ body {
   min-height: 100vh;
 }
 
-/* Color Variables */
-:root {
-  --primary-dark: #2c2c2c;
-  --primary-charcoal: #1a1a1a;
-  --accent-orange: #f0b35b;
-  --light-beige: #f5f5f0;
-  --white: #ffffff;
-  --text-dark: #333333;
-  --text-light: #666666;
-}
-
 /* Utility Classes */
 .container {
   max-width: 1200px;
@@ -35,58 +24,10 @@ body {
   padding: 0 20px;
 }
 
-.btn-primary {
-  background-color: var(--accent-orange);
-  color: var(--white);
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-}
-
-.btn-primary:hover {
-  background-color: #e55a2b;
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  background-color: transparent;
-  color: var(--white);
-  border: 2px solid var(--white);
-  padding: 10px 22px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-secondary:hover {
-  background-color: var(--white);
-  color: var(--primary-dark);
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
     padding: 0 15px;
-  }
-  
-  .btn-primary,
-  .btn-secondary {
-    padding: 10px 20px;
-    font-size: 14px;
   }
 }
 

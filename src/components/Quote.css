@@ -1,0 +1,115 @@
+/* Quote Section */
+.quote-section {
+  background: #0f0f0f;
+  padding: 2rem 0;
+  text-align: center;
+  position: relative;
+}
+
+.quote-container {
+  position: relative;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.quote-text {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #ffffff;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  width: 80%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.quote-text.animate {
+  opacity: 1;
+}
+
+.quote-first {
+  overflow: hidden;
+  white-space: nowrap;
+  min-height: 1.2em;
+}
+
+.quote-first.animate::after {
+  content: '';
+  animation: blink-caret 0.5s step-end infinite;
+}
+
+.quote-second {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.quote-second.animate {
+  opacity: 1;
+}
+
+.quote-first.hidden {
+  opacity: 0;
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #ffffff;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quote-section {
+    padding: 1.5rem 0;
+  }
+  
+  .quote-container {
+    min-height: 50px;
+    padding: 0 1rem;
+  }
+  
+  .quote-text {
+    font-size: 2rem;
+    letter-spacing: 0.3px;
+  }
+  
+  .quote-first.animate {
+    animation: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .quote-section {
+    padding: 1rem 0;
+  }
+  
+  .quote-container {
+    min-height: 40px;
+    padding: 0 1rem;
+  }
+  
+  .quote-text {
+    font-size: 1.5rem;
+    letter-spacing: 0.3px;
+  }
+  
+  .quote-first.animate {
+    animation: none;
+  }
+}

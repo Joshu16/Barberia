@@ -5,6 +5,7 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { reviews } from '../data/reviews';
+import './Reviews.css';
 
 // Componente de estrella personalizada más angular
 const AngularStar = ({ filled, size = 16 }) => (

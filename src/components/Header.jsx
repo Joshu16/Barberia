@@ -1,4 +1,5 @@
 import React from 'react';
+import './Header.css';
 
 const Header = ({ isScrolled }) => {
   return (
@@ -23,7 +24,7 @@ const Header = ({ isScrolled }) => {
 
           {/* CTA Button */}
           <div className="header-cta">
-            <a href="#appointment" className="btn-primary">
+            <a href="#appointment" className="btn-navbar">
               Agenda
             </a>
           </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin, Clock, Phone } from 'lucide-react';
+import './MapSection.css';
 
 const MapSection = () => {
   const address = "Barberia Roxana, WQ74+RVR, Av. Central, San José, Cd Colón";
