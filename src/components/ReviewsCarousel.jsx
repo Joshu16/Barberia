@@ -23,8 +23,17 @@ const AngularStar = ({ filled, size = 16 }) => (
 
 const ReviewsCarousel = () => {
   const [activeSlide, setActiveSlide] = React.useState(0);
+  const [hoveredCard, setHoveredCard] = React.useState(null);
   const swiperRef = useRef(null);
 
+  // Funciones para manejar el hover
+  const handleCardMouseEnter = (cardId) => {
+    setHoveredCard(cardId);
+  };
+
+  const handleCardMouseLeave = () => {
+    setHoveredCard(null);
+  };
 
   // Controlar autoplay basado en hover
   useEffect(() => {
@@ -91,7 +100,11 @@ const ReviewsCarousel = () => {
           >
             {reviews.map((review) => (
               <SwiperSlide key={review.id}>
-                <div className="review-card">
+                <div 
+                  className={`review-card ${hoveredCard === review.id ? 'hovered' : ''} ${hoveredCard && hoveredCard !== review.id ? 'blurred' : ''}`}
+                  onMouseEnter={() => handleCardMouseEnter(review.id)}
+                  onMouseLeave={handleCardMouseLeave}
+                >
                   <div className="review-content">
                     <p className="review-text">"{review.comment}"</p>
                     <div className="review-author">

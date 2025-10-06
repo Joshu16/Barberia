@@ -1597,9 +1597,11 @@
 
 .reviews-carousel .review-card {
   transition: all 0.3s ease;
+  filter: blur(0);
+  opacity: 1;
 }
 
-.reviews-carousel .review-card:hover {
+.reviews-carousel .review-card.hovered {
   filter: blur(0) !important;
   opacity: 1 !important;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
@@ -1607,9 +1609,10 @@
   position: relative;
 }
 
-.reviews-carousel .review-card:hover ~ .review-card {
+.reviews-carousel .review-card.blurred {
   filter: blur(2px) !important;
-  opacity: 0.7 !important;
+  opacity: 0.6 !important;
+  transform: scale(0.98);
 }
 
 /* Review Cards */
