@@ -9,6 +9,9 @@ import './LandingPage.css';
 const LandingPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [displayedText, setDisplayedText] = useState('');
+  const [showSecondQuote, setShowSecondQuote] = useState(false);
+  const [showFirstQuote, setShowFirstQuote] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,35 +22,42 @@ const LandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Animación del quote que se repite
+  // Animación de escritura simple
   useEffect(() => {
-    const firstQuote = document.querySelector('.quote-first[data-animate="true"]');
-    const secondQuote = document.querySelector('.quote-second[data-animate="true"]');
-    
-    if (firstQuote && secondQuote) {
-      const startAnimation = () => {
-        // Mostrar primera frase
-        firstQuote.classList.add('animate');
-        secondQuote.classList.remove('animate');
-        
-        // Después de 6 segundos (4s escritura + 2s pausa)
+    const fullText = "Tu peinado es tu carta de presentación.";
+    let currentIndex = 0;
+    let timeoutId;
+
+    const typeWriter = () => {
+      if (currentIndex < fullText.length) {
+        const currentText = fullText.slice(0, currentIndex + 1);
+        setDisplayedText(currentText);
+        currentIndex++;
+        timeoutId = setTimeout(typeWriter, 75);
+      } else {
+        // Terminó de escribir, esperar 2 segundos y mostrar segunda frase
         setTimeout(() => {
-          firstQuote.classList.remove('animate');
-          secondQuote.classList.add('animate');
-          
-          // Después de 3 segundos más, ocultar segunda y repetir
+          setShowFirstQuote(false); // Ocultar primera frase
+          setShowSecondQuote(true); // Mostrar segunda frase
+          // Después de 3 segundos, reiniciar
           setTimeout(() => {
-            secondQuote.classList.remove('animate');
-            setTimeout(() => {
-              startAnimation(); // Repetir
-            }, 1000); // Esperar 1 segundo antes de repetir
+            setShowSecondQuote(false);
+            setShowFirstQuote(true); // Mostrar primera frase de nuevo
+            setDisplayedText('');
+            currentIndex = 0;
+            setTimeout(typeWriter, 1000);
           }, 3000);
-        }, 6000); // 4s escritura + 2s pausa
-      };
-      
-      // Iniciar la animación
-      startAnimation();
-    }
+        }, 2000);
+      }
+    };
+
+    typeWriter();
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, []);
 
   // Datos de servicios
@@ -165,8 +175,8 @@ const LandingPage = () => {
       <section className="quote-section">
         <div className="container">
           <div className="quote-container">
-            <p className="quote-text quote-first" data-animate="true">Tu peinado es tu carta de presentación.</p>
-            <p className="quote-text quote-second" data-animate="true">Úsalo bien.</p>
+            <p className={`quote-text quote-first ${showFirstQuote ? '' : 'hidden'}`}>{displayedText}</p>
+            <p className={`quote-text quote-second ${showSecondQuote ? 'animate' : ''}`}>Úsalo bien.</p>
           </div>
         </div>
       </section>
