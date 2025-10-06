@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, Scissors, ChevronLeft, ChevronRight, ScissorsIcon, Zap, Sparkles, Baby, Palette } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
@@ -12,6 +12,8 @@ const LandingPage = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [showSecondQuote, setShowSecondQuote] = useState(false);
   const [showFirstQuote, setShowFirstQuote] = useState(true);
+  const [isHovering, setIsHovering] = useState(false);
+  const swiperRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,6 +61,17 @@ const LandingPage = () => {
       }
     };
   }, []);
+
+  // Controlar autoplay basado en hover
+  useEffect(() => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      if (isHovering) {
+        swiperRef.current.swiper.autoplay.stop();
+      } else {
+        swiperRef.current.swiper.autoplay.start();
+      }
+    }
+  }, [isHovering]);
 
   // Datos de servicios
   const services = [
@@ -186,8 +199,9 @@ const LandingPage = () => {
             <p className="services-subtitle">Descubre nuestra gama completa de servicios profesionales</p>
           </div>
           
-            <div className="services-carousel">
+            <div className={`services-carousel ${isHovering ? 'has-hover' : ''}`}>
               <Swiper
+                ref={swiperRef}
                 modules={[Navigation, Autoplay]}
                 spaceBetween={30}
                 slidesPerView={3}
@@ -222,7 +236,11 @@ const LandingPage = () => {
               >
                 {services.map((service) => (
                   <SwiperSlide key={service.id}>
-                    <div className="service-card">
+                    <div 
+                      className="service-card"
+                      onMouseEnter={() => setIsHovering(true)}
+                      onMouseLeave={() => setIsHovering(false)}
+                    >
                       <div className="service-image">
                         <img src={service.image} alt={service.title} />
                         <div className="service-overlay">
