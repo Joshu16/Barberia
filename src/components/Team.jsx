@@ -17,6 +17,7 @@ const Team = () => {
               <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=500&fit=crop&q=80" alt="Roxana - Barbera Principal" />
               <div className="barber-overlay">
                 <div className="barber-badge">Principal</div>
+                <div className="appointment-badge">Requiere agendar</div>
               </div>
             </div>
             <div className="barber-content">

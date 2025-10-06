@@ -86,7 +86,8 @@
 }
 
 .btn-secondary:hover {
-  background: var(--primary-orange-hover);
+  background: var(--white);
+  color: #1a1a1a;
   transform: translateY(-2px);
 }
 
