@@ -472,6 +472,8 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px 2rem;
+  overflow: visible !important;
+
 }
 
 .services-grid {
@@ -480,6 +482,7 @@
   gap: 2rem;
   width: 100%;
   max-width: 1000px;
+
 }
 
 .service-card {
@@ -1041,6 +1044,263 @@
   }
 }
 
+/* Team Section */
+.team-section {
+  background: #1a1a1a;
+  padding: 3rem 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.team-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.team-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.team-subtitle {
+  font-size: 1rem;
+  color: #cccccc;
+  font-weight: 300;
+}
+
+/* Team Container */
+.team-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: calc(100vh - 200px);
+}
+
+/* Main Barber Card */
+.main-barber-card {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 20px;
+  border: 1px solid #333333;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  flex: 1;
+  min-height: 0;
+}
+
+.barber-image {
+  flex: 0 0 350px;
+  position: relative;
+  height: 100%;
+  min-height: 400px;
+}
+
+.barber-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.barber-overlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.barber-badge {
+  background: #d4af37;
+  color: #000000;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.barber-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.barber-name {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.barber-title {
+  font-size: 1.2rem;
+  color: #d4af37;
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.barber-description {
+  font-size: 1rem;
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.barber-specialties {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.specialty {
+  background: #333333;
+  color: #ffffff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 300;
+}
+
+/* Team Members */
+.team-members {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.team-member-card {
+  background: #2a2a2a;
+  border-radius: 15px;
+  border: 1px solid #333333;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.team-member-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.member-image {
+  margin-bottom: 1rem;
+}
+
+.member-image img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #d4af37;
+  margin: 0 auto;
+}
+
+.member-name {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 0.3rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.member-role {
+  font-size: 0.9rem;
+  color: #d4af37;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* Team Section Responsive */
+@media (max-width: 768px) {
+  .team-section {
+    padding: 2rem 0;
+    min-height: 100vh;
+  }
+  
+  .team-title {
+    font-size: 2rem;
+  }
+  
+  .team-container {
+    height: calc(100vh - 150px);
+    gap: 1.5rem;
+  }
+  
+  .main-barber-card {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .barber-image {
+    flex: none;
+    height: 250px;
+    min-height: 250px;
+  }
+  
+  .barber-content {
+    padding: 1.5rem;
+  }
+  
+  .barber-name {
+    font-size: 1.8rem;
+  }
+  
+  .team-members {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .member-image img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-section {
+    padding: 1.5rem 0;
+  }
+  
+  .team-title {
+    font-size: 1.8rem;
+  }
+  
+  .team-container {
+    height: calc(100vh - 120px);
+  }
+  
+  .barber-content {
+    padding: 1rem;
+  }
+  
+  .barber-name {
+    font-size: 1.6rem;
+  }
+  
+  .barber-description {
+    font-size: 0.9rem;
+  }
+  
+  .team-members {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+}
+
 @media (max-width: 480px) {
   .quote-section {
     padding: 1rem 0;
@@ -1058,5 +1318,262 @@
   
   .quote-first.animate {
     animation: none;
+  }
+}
+
+/* Team Section */
+.team-section {
+  background: #1a1a1a;
+  padding: 3rem 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.team-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.team-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.team-subtitle {
+  font-size: 1rem;
+  color: #cccccc;
+  font-weight: 300;
+}
+
+/* Team Container */
+.team-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: calc(100vh - 200px);
+}
+
+/* Main Barber Card */
+.main-barber-card {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 20px;
+  border: 1px solid #333333;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  flex: 1;
+  min-height: 0;
+}
+
+.barber-image {
+  flex: 0 0 350px;
+  position: relative;
+  height: 100%;
+  min-height: 400px;
+}
+
+.barber-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.barber-overlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.barber-badge {
+  background: #d4af37;
+  color: #000000;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.barber-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.barber-name {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.barber-title {
+  font-size: 1.2rem;
+  color: #d4af37;
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.barber-description {
+  font-size: 1rem;
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.barber-specialties {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.specialty {
+  background: #333333;
+  color: #ffffff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 300;
+}
+
+/* Team Members */
+.team-members {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.team-member-card {
+  background: #2a2a2a;
+  border-radius: 15px;
+  border: 1px solid #333333;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.team-member-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.member-image {
+  margin-bottom: 1rem;
+}
+
+.member-image img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #d4af37;
+  margin: 0 auto;
+}
+
+.member-name {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 0.3rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.member-role {
+  font-size: 0.9rem;
+  color: #d4af37;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* Team Section Responsive */
+@media (max-width: 768px) {
+  .team-section {
+    padding: 2rem 0;
+    min-height: 100vh;
+  }
+  
+  .team-title {
+    font-size: 2rem;
+  }
+  
+  .team-container {
+    height: calc(100vh - 150px);
+    gap: 1.5rem;
+  }
+  
+  .main-barber-card {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .barber-image {
+    flex: none;
+    height: 250px;
+    min-height: 250px;
+  }
+  
+  .barber-content {
+    padding: 1.5rem;
+  }
+  
+  .barber-name {
+    font-size: 1.8rem;
+  }
+  
+  .team-members {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .member-image img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-section {
+    padding: 1.5rem 0;
+  }
+  
+  .team-title {
+    font-size: 1.8rem;
+  }
+  
+  .team-container {
+    height: calc(100vh - 120px);
+  }
+  
+  .barber-content {
+    padding: 1rem;
+  }
+  
+  .barber-name {
+    font-size: 1.6rem;
+  }
+  
+  .barber-description {
+    font-size: 0.9rem;
+  }
+  
+  .team-members {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
   }
 }
