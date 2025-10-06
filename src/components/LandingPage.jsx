@@ -7,6 +7,7 @@ import Services from './Services';
 import Gallery from './Gallery';
 import Team from './Team';
 import ReviewsCarousel from './ReviewsCarousel';
+import MapSection from './MapSection';
 import { useScroll } from '../hooks/useScroll';
 
 const LandingPage = () => {
@@ -21,6 +22,7 @@ const LandingPage = () => {
       <Gallery />
       <Team />
       <ReviewsCarousel />
+      <MapSection />
     </div>
   );
 };
