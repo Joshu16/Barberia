@@ -308,11 +308,11 @@
   }
   
   .swiper-button-prev {
-    left: -10px !important;
+    left: 8px !important;
   }
   
   .swiper-button-next {
-    right: -10px !important;
+    right: 8px !important;
   }
 }
 
@@ -327,5 +327,20 @@
   
   .section-subtitle {
     font-size: 0.9rem;
+  }
+  
+  /* Swiper buttons for small mobile */
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  
+  .swiper-button-prev {
+    left: 5px !important;
+  }
+  
+  .swiper-button-next {
+    right: 5px !important;
   }
 }

@@ -187,15 +187,21 @@
   }
   
   .services-carousel {
-    padding: 0 1rem;
+    padding: 0 2rem;
     max-width: 100%;
     display: flex;
     justify-content: center;
   }
   
+  .services-swiper {
+    padding: 0 1rem !important;
+  }
+  
   .service-card {
-    max-width: 280px;
-    margin: 0 10px;
+    max-width: 270px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
   }
   
   .service-image {
@@ -206,6 +212,19 @@
 @media (max-width: 480px) {
   .services-title {
     font-size: 1.8rem;
+  }
+  
+  .services-carousel {
+    padding: 0 1.5rem;
+  }
+  
+  .services-swiper {
+    padding: 0 0.5rem !important;
+  }
+  
+  .service-card {
+    max-width: 280px;
+    margin: 0 auto;
   }
   
   .service-content {
