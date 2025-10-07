@@ -17,6 +17,12 @@ const Quote = () => {
             // La sección es visible al 80%, iniciar animación
             setHasAnimated(true);
             startAnimation();
+          } else if (!entry.isIntersecting && hasAnimated) {
+            // La sección ya no es visible, resetear para la próxima vez
+            setHasAnimated(false);
+            setDisplayedText('');
+            setShowSecondQuote(false);
+            setShowFirstQuote(true);
           }
         });
       },
