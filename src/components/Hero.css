@@ -46,6 +46,8 @@
   letter-spacing: -1px;
   font-family: 'Playfair Display', serif;
   white-space: nowrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .hero-description {
@@ -99,6 +101,9 @@
   
   .hero-title {
     font-size: 2.8rem;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .hero-description {
@@ -125,6 +130,9 @@
 @media (max-width: 480px) {
   .hero-title {
     font-size: 2.2rem;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .hero-description {

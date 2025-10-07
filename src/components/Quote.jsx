@@ -7,6 +7,21 @@ const Quote = () => {
   const [showFirstQuote, setShowFirstQuote] = useState(true);
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef(null);
+  const timeoutsRef = useRef([]);
+
+  // Función para limpiar todos los timeouts
+  const clearAllTimeouts = () => {
+    timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
+    timeoutsRef.current = [];
+  };
+
+  // Función para resetear el estado de la animación
+  const resetAnimationState = () => {
+    setDisplayedText('');
+    setShowSecondQuote(false);
+    setShowFirstQuote(true);
+    clearAllTimeouts();
+  };
 
   // Intersection Observer para detectar cuando la sección es visible al 80%
   useEffect(() => {
@@ -20,9 +35,7 @@ const Quote = () => {
           } else if (!entry.isIntersecting && hasAnimated) {
             // La sección ya no es visible, resetear para la próxima vez
             setHasAnimated(false);
-            setDisplayedText('');
-            setShowSecondQuote(false);
-            setShowFirstQuote(true);
+            resetAnimationState();
           }
         });
       },
@@ -40,6 +53,7 @@ const Quote = () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
       }
+      clearAllTimeouts();
     };
   }, [hasAnimated]);
 
@@ -47,38 +61,35 @@ const Quote = () => {
   const startAnimation = () => {
     const fullText = "Tu peinado es tu carta de presentación.";
     let currentIndex = 0;
-    let timeoutId;
 
     const typeWriter = () => {
       if (currentIndex < fullText.length) {
         const currentText = fullText.slice(0, currentIndex + 1);
         setDisplayedText(currentText);
         currentIndex++;
-        timeoutId = setTimeout(typeWriter, 75);
+        const timeoutId = setTimeout(typeWriter, 75);
+        timeoutsRef.current.push(timeoutId);
       } else {
         // Terminó de escribir, esperar 2 segundos y mostrar segunda frase
-        setTimeout(() => {
+        const timeout1 = setTimeout(() => {
           setShowFirstQuote(false); // Ocultar primera frase
           setShowSecondQuote(true); // Mostrar segunda frase
           // Después de 3 segundos, reiniciar
-          setTimeout(() => {
+          const timeout2 = setTimeout(() => {
             setShowSecondQuote(false);
             setShowFirstQuote(true); // Mostrar primera frase de nuevo
             setDisplayedText('');
             currentIndex = 0;
-            setTimeout(typeWriter, 1000);
+            const timeout3 = setTimeout(typeWriter, 1000);
+            timeoutsRef.current.push(timeout3);
           }, 3000);
+          timeoutsRef.current.push(timeout2);
         }, 2000);
+        timeoutsRef.current.push(timeout1);
       }
     };
 
     typeWriter();
-
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
   };
 
   return (
