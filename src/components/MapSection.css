@@ -211,7 +211,7 @@
 @media (max-width: 768px) {
   .map-section {
     min-height: 100vh;
-    padding: 1rem 0;
+    padding: 2rem 0;
   }
   
   .map-title {
@@ -224,17 +224,19 @@
   
   .map-container {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
     padding: 0 1rem;
   }
   
   .map-wrapper {
     height: 400px;
-    order: 2;
+    order: 1;
   }
   
   .map-info {
-    order: 1;
+    order: 2;
+    height: auto;
+    gap: 1rem;
   }
   
   .info-card {
@@ -242,14 +244,18 @@
   }
   
   .map-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .map-cta {
+    margin-top: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .map-section {
     min-height: 100vh;
-    padding: 0.5rem 0;
+    padding: 1.5rem 0;
   }
   
   .map-title {
@@ -262,7 +268,7 @@
   
   .map-container {
     padding: 0 0.5rem;
-    gap: 1rem;
+    gap: 1.5rem;
   }
   
   .map-wrapper {
@@ -288,6 +294,10 @@
   }
   
   .map-header {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .map-cta {
+    margin-top: 1.5rem;
   }
 }

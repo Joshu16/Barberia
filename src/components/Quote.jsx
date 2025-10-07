@@ -1,103 +1,61 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Quote.css';
 
 const Quote = () => {
-  const [displayedText, setDisplayedText] = useState('');
-  const [showSecondQuote, setShowSecondQuote] = useState(false);
-  const [showFirstQuote, setShowFirstQuote] = useState(true);
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const sectionRef = useRef(null);
-  const timeoutsRef = useRef([]);
+  const [currentText, setCurrentText] = useState('');
+  const [showSecond, setShowSecond] = useState(false);
 
-  // Función para limpiar todos los timeouts
-  const clearAllTimeouts = () => {
-    timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
-    timeoutsRef.current = [];
-  };
+  const fullText = "Tu peinado es tu carta de presentación.";
 
-  // Función para resetear el estado de la animación
-  const resetAnimationState = () => {
-    setDisplayedText('');
-    setShowSecondQuote(false);
-    setShowFirstQuote(true);
-    clearAllTimeouts();
-  };
-
-  // Intersection Observer para detectar cuando la sección es visible al 80%
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            // La sección es visible al 80%, iniciar animación
-            setHasAnimated(true);
-            startAnimation();
-          } else if (!entry.isIntersecting && hasAnimated) {
-            // La sección ya no es visible, resetear para la próxima vez
-            setHasAnimated(false);
-            resetAnimationState();
-          }
-        });
-      },
-      {
-        threshold: 0.8, // 80% de la sección debe ser visible
-        rootMargin: '0px'
-      }
-    );
+    let index = 0;
+    let intervalId;
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    const startTyping = () => {
+      intervalId = setInterval(() => {
+        if (index < fullText.length) {
+          setCurrentText(fullText.slice(0, index + 1));
+          index++;
+        } else {
+          clearInterval(intervalId);
+          
+          // Mostrar segunda frase después de 2 segundos
+          setTimeout(() => {
+            setShowSecond(true);
+            
+            // Reiniciar después de 3 segundos
+            setTimeout(() => {
+              setShowSecond(false);
+              setCurrentText('');
+              index = 0;
+              startTyping(); // Reiniciar
+            }, 3000);
+          }, 2000);
+        }
+      }, 100);
+    };
+
+    startTyping();
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-      clearAllTimeouts();
-    };
-  }, [hasAnimated]);
-
-  // Función para iniciar la animación
-  const startAnimation = () => {
-    const fullText = "Tu peinado es tu carta de presentación.";
-    let currentIndex = 0;
-
-    const typeWriter = () => {
-      if (currentIndex < fullText.length) {
-        const currentText = fullText.slice(0, currentIndex + 1);
-        setDisplayedText(currentText);
-        currentIndex++;
-        const timeoutId = setTimeout(typeWriter, 75);
-        timeoutsRef.current.push(timeoutId);
-      } else {
-        // Terminó de escribir, esperar 2 segundos y mostrar segunda frase
-        const timeout1 = setTimeout(() => {
-          setShowFirstQuote(false); // Ocultar primera frase
-          setShowSecondQuote(true); // Mostrar segunda frase
-          // Después de 3 segundos, reiniciar
-          const timeout2 = setTimeout(() => {
-            setShowSecondQuote(false);
-            setShowFirstQuote(true); // Mostrar primera frase de nuevo
-            setDisplayedText('');
-            currentIndex = 0;
-            const timeout3 = setTimeout(typeWriter, 1000);
-            timeoutsRef.current.push(timeout3);
-          }, 3000);
-          timeoutsRef.current.push(timeout2);
-        }, 2000);
-        timeoutsRef.current.push(timeout1);
+      if (intervalId) {
+        clearInterval(intervalId);
       }
     };
-
-    typeWriter();
-  };
+  }, []);
 
   return (
-    <section ref={sectionRef} className="quote-section">
+    <section className="quote-section">
       <div className="container">
         <div className="quote-container">
-          <p className={`quote-text quote-first ${showFirstQuote ? '' : 'hidden'}`}>{displayedText}</p>
-          <p className={`quote-text quote-second ${showSecondQuote ? 'animate' : ''}`}>Úsalo bien.</p>
+          {!showSecond ? (
+            <p className="quote-text quote-first">
+              {currentText}
+              <span className="cursor">|</span>
+            </p>
+          ) : (
+            <p className="quote-text quote-second">Úsalo bien.</p>
+          )}
         </div>
       </div>
     </section>

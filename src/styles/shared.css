@@ -299,6 +299,21 @@
   .section-subtitle {
     font-size: 1rem;
   }
+  
+  /* Swiper buttons for mobile */
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  
+  .swiper-button-prev {
+    left: -10px !important;
+  }
+  
+  .swiper-button-next {
+    right: -10px !important;
+  }
 }
 
 @media (max-width: 480px) {

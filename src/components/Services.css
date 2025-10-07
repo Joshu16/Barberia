@@ -29,9 +29,6 @@
 
 .services-carousel {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px 2rem;
@@ -191,6 +188,18 @@
   
   .services-carousel {
     padding: 0 1rem;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .service-card {
+    max-width: 280px;
+    margin: 0 10px;
+  }
+  
+  .service-image {
+    height: 180px;
   }
 }
 

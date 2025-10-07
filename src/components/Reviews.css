@@ -33,14 +33,10 @@
 /* Reviews Carousel */
 .reviews-carousel {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px 2rem;
   overflow: visible !important;
-  height: 200px;
 }
 
 .reviews-carousel .swiper {
@@ -215,7 +211,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .reviews-section {
-    padding: 1.5rem 0;
+    padding: 2rem 0;
   }
   
   .reviews-title {
@@ -227,13 +223,18 @@
   }
   
   .reviews-carousel {
-    padding: 0 1rem;
+    padding: 0 2rem;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
   }
   
   .review-card {
     padding: 1rem;
     height: 140px;
     min-height: 140px;
+    max-width: 280px;
+    margin: 0 auto;
   }
   
   .review-text {
@@ -241,7 +242,7 @@
   }
   
   .reviews-cta {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
   
   .cta-title {
@@ -260,7 +261,7 @@
 
 @media (max-width: 480px) {
   .reviews-section {
-    padding: 1rem 0;
+    padding: 1.5rem 0;
   }
   
   .reviews-title {
@@ -272,13 +273,18 @@
   }
   
   .reviews-carousel {
-    padding: 0 0.5rem;
+    padding: 0 1.5rem;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
   }
   
   .review-card {
     padding: 0.875rem;
     height: 120px;
     min-height: 120px;
+    max-width: 250px;
+    margin: 0 auto;
   }
   
   .review-text {
@@ -286,7 +292,7 @@
   }
   
   .reviews-cta {
-    margin-top: 0.75rem;
+    margin-top: 1.5rem;
   }
   
   .cta-title {

@@ -46,51 +46,47 @@
   min-height: 1.2em;
 }
 
-.quote-first.animate::after {
-  content: '';
-  animation: blink-caret 0.5s step-end infinite;
+.cursor {
+  animation: blink 1s infinite;
+  color: var(--primary-orange);
+  font-weight: bold;
 }
 
 .quote-second {
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.5s ease;
 }
 
-.quote-second.animate {
-  opacity: 1;
-}
-
-.quote-first.hidden {
-  opacity: 0;
-}
-
-@keyframes blink-caret {
-  from, to {
-    border-color: transparent;
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
   }
-  50% {
-    border-color: #ffffff;
+  51%, 100% {
+    opacity: 0;
   }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .quote-section {
-    padding: 1.5rem 0;
+    padding: 2rem 0;
   }
   
   .quote-container {
-    min-height: 50px;
+    min-height: 80px;
     padding: 0 1rem;
   }
   
   .quote-text {
-    font-size: 2rem;
+    font-size: 1.8rem;
     letter-spacing: 0.3px;
+    line-height: 1.3;
   }
   
-  .quote-first.animate {
-    animation: none;
+  .quote-first {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
