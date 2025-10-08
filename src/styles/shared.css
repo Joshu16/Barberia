@@ -62,15 +62,15 @@
 }
 
 .btn-secondary {
-  background: transparent;
-  color: var(--white);
-  border: 1px solid var(--white);
+  background: transparent !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
   padding: 12px 24px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -86,8 +86,8 @@
 }
 
 .btn-secondary:hover {
-  background: var(--white);
-  color: #1a1a1a;
+  background: #ffffff !important;
+  color: #1a1a1a !important;
   transform: translateY(-2px);
 }
 

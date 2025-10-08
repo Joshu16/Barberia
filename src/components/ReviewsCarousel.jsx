@@ -7,6 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { reviews } from '../data/reviews';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useBooking } from '../contexts/BookingContext';
 import './Reviews.css';
 
 // Componente de estrella personalizada más angular
@@ -31,6 +32,7 @@ const ReviewsCarousel = () => {
   const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
   const [carouselRef, isCarouselVisible] = useScrollAnimation(0.1);
   const [ctaRef, isCtaVisible] = useScrollAnimation(0.2);
+  const { openBookingModal } = useBooking();
 
   // Funciones para manejar el hover
   const handleCardMouseEnter = (cardId) => {

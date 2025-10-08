@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useBooking } from '../contexts/BookingContext';
 import './Gallery.css';
 
 const Gallery = () => {
@@ -10,6 +11,7 @@ const Gallery = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
   const [galleryRef, isGalleryVisible] = useScrollAnimation(0.1);
+  const { openBookingModal } = useBooking();
 
   // Array de todas las imágenes de la galería
   const galleryImages = [
@@ -267,6 +269,9 @@ const Gallery = () => {
             transition={{ delay: 0.8 }}
           >
             <p className="gallery-cta-text">¿Querés un estilo así? Reservá tu cita</p>
+            <button onClick={openBookingModal} className="gallery-cta-button">
+              Agendar Cita
+            </button>
           </motion.div>
         </div>
       </section>

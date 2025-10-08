@@ -135,6 +135,7 @@
 
 .service-btn:hover {
   background: #d49a4a;
+  color: #000000;
   transform: translateY(-2px);
 }
 

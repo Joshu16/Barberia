@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useBooking } from '../contexts/BookingContext';
 import './Hero.css';
 
 const Hero = () => {
+  const { openBookingModal } = useBooking();
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -76,12 +79,12 @@ const Hero = () => {
               className="hero-buttons"
               variants={buttonVariants}
             >
-              <a href="#appointment" className="btn-navbar">
+              <button onClick={openBookingModal} className="btn-navbar">
                 Agendar
-              </a>
-              <a href="#services" className="btn-secondary">
+              </button>
+              <button className="btn-secondary" onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}>
                 Servicios
-              </a>
+              </button>
             </motion.div>
           </div>
         </motion.div>

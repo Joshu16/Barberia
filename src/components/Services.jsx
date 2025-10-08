@@ -7,6 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { services } from '../data/services';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useBooking } from '../contexts/BookingContext';
 import './Services.css';
 
 const Services = () => {
@@ -15,6 +16,7 @@ const Services = () => {
   const swiperRef = useRef(null);
   const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
   const [carouselRef, isCarouselVisible] = useScrollAnimation(0.1);
+  const { openBookingModal } = useBooking();
 
   // Controlar autoplay basado en hover
   useEffect(() => {
@@ -124,7 +126,7 @@ const Services = () => {
                   <div className="service-content">
                     <h3 className="service-title">{service.title}</h3>
                     <p className="service-description">{service.description}</p>
-                    <button className="service-btn">Agendar</button>
+                    <button className="service-btn" onClick={openBookingModal}>Agendar</button>
                   </div>
                 </div>
               </SwiperSlide>

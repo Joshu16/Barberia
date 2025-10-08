@@ -82,6 +82,20 @@
 
 /* Button styles are now in shared.css */
 
+/* Hero specific button styles for PC */
+@media (min-width: 1025px) {
+  .hero-buttons .btn-navbar,
+  .hero-buttons .btn-secondary {
+    width: 160px !important;
+    min-width: 160px !important;
+    max-width: 160px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    height: 46px !important;
+    padding: 12px 24px !important;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .hero-content {

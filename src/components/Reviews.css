@@ -205,11 +205,11 @@
 }
 
 .reviews-carousel .swiper-button-prev {
-  left: 20px !important;
+  left: -40px !important;
 }
 
 .reviews-carousel .swiper-button-next {
-  right: 20px !important;
+  right: -40px !important;
 }
 
 /* CTA Section */
@@ -232,9 +232,19 @@
   font-weight: 300;
 }
 
-/* CTA button styles are now in shared.css */
+/* CTA Section - Button styles are now in shared.css */
 
 /* Responsive Design */
+@media (min-width: 1024px) {
+  .reviews-carousel .swiper-button-prev {
+    left: -50px !important;
+  }
+  
+  .reviews-carousel .swiper-button-next {
+    right: -50px !important;
+  }
+}
+
 @media (max-width: 768px) {
   .reviews-section {
     padding: 2rem 0;
@@ -294,6 +304,7 @@
     padding: 0.65rem 1.25rem;
     font-size: 0.8rem;
   }
+  
 }
 
 @media (max-width: 480px) {
@@ -355,4 +366,5 @@
     padding: 0.6rem 1rem;
     font-size: 0.75rem;
   }
+  
 }

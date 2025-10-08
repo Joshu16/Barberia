@@ -84,17 +84,6 @@
   letter-spacing: 0.5px;
 }
 
-.appointment-badge {
-  background: var(--primary-orange);
-  color: #1a1a1a;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  box-shadow: 0 2px 8px rgba(240, 179, 91, 0.3);
-}
 
 .barber-content {
   flex: 1;
@@ -145,6 +134,24 @@
   font-size: 0.85rem;
   font-weight: 300;
   white-space: nowrap;
+}
+
+.barber-requires-booking {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.booking-required {
+  background: rgba(240, 179, 91, 0.1);
+  color: var(--primary-orange);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid rgba(240, 179, 91, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .team-members {

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Clock, Phone } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useBooking } from '../contexts/BookingContext';
 import './MapSection.css';
 
 const MapSection = () => {
@@ -13,6 +14,7 @@ const MapSection = () => {
   const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
   const [mapRef, isMapVisible] = useScrollAnimation(0.1);
   const [infoRef, isInfoVisible] = useScrollAnimation(0.1);
+  const { openBookingModal } = useBooking();
 
   const schedule = [
     { day: "Lunes - Viernes", hours: "9:00 AM - 7:00 PM" },
@@ -168,9 +170,9 @@ const MapSection = () => {
               className="map-cta"
               variants={cardVariants}
             >
-              <a href="#" className="cta-button">
+              <button onClick={openBookingModal} className="cta-button">
                 Agendar Cita
-              </a>
+              </button>
             </motion.div>
           </motion.div>
         </div>

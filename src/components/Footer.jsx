@@ -106,12 +106,21 @@ const Footer = () => {
         {/* Copyright */}
         <div className="footer-bottom">
           <div className="footer-copyright">
-            <p>&copy; 2024 Barbería Roxana. Todos los derechos reservados.</p>
-          </div>
-          <div className="footer-links-bottom">
-            <a href="#privacy">Política de Privacidad</a>
-            <a href="#terms">Términos de Servicio</a>
-            <a href="#cookies">Política de Cookies</a>
+            <a 
+              href="https://bysaborio.vercel.app/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="footer-brand-link"
+            >
+              <span className="footer-brand-text">
+                Desarrollado por <span className="footer-brand-name">BySaborío Digital Solutions</span>
+              </span>
+              <img 
+                src="https://bysaborio.vercel.app/assets/Logo%20PNG-BvnbT45m.png" 
+                alt="BySaborío Digital Solutions" 
+                className="footer-brand-logo"
+              />
+            </a>
           </div>
         </div>
       </div>

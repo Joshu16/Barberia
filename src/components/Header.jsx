@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useBooking } from '../contexts/BookingContext';
 import './Header.css';
 
 const Header = ({ isScrolled }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { openBookingModal } = useBooking();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -37,9 +39,9 @@ const Header = ({ isScrolled }) => {
 
           {/* CTA Button */}
           <div className="header-cta">
-            <a href="#appointment" className="btn-navbar">
+            <button onClick={openBookingModal} className="btn-navbar">
               Agenda
-            </a>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -62,7 +64,7 @@ const Header = ({ isScrolled }) => {
             <li><a href="#team" className="mobile-nav-link" onClick={closeMobileMenu}>Equipo</a></li>
             <li><a href="#reviews" className="mobile-nav-link" onClick={closeMobileMenu}>Reseñas</a></li>
             <li><a href="#location" className="mobile-nav-link" onClick={closeMobileMenu}>Ubicación</a></li>
-            <li><a href="#appointment" className="mobile-nav-link cta" onClick={closeMobileMenu}>Agenda</a></li>
+            <li><button className="mobile-nav-link cta" onClick={() => { closeMobileMenu(); openBookingModal(); }}>Agenda</button></li>
           </ul>
         </nav>
       </div>
