@@ -1,27 +1,90 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import './Hero.css';
 
 const Hero = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        staggerChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50 
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const buttonVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30 
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        delay: 0.8
+      }
+    }
+  };
+
   return (
     <section id="home" className="hero-section">
       <div className="container">
-        <div className="hero-content">
+        <motion.div 
+          className="hero-content"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="hero-text">
-            <div className="hero-subtitle">BARBERIA EXCELENCIA</div>
-            <h1 className="hero-title">Más que un corte, Una experiencia</h1>
-            <p className="hero-description">
+            <motion.div 
+              className="hero-subtitle"
+              variants={itemVariants}
+            >
+              BARBERIA EXCELENCIA
+            </motion.div>
+            <motion.h1 
+              className="hero-title"
+              variants={itemVariants}
+            >
+              Más que un corte, Una experiencia
+            </motion.h1>
+            <motion.p 
+              className="hero-description"
+              variants={itemVariants}
+            >
               Disfruta de la experiencia de grooming más relajada y profesional cada vez que entres a nuestra barbería.
-            </p>
-            <div className="hero-buttons">
+            </motion.p>
+            <motion.div 
+              className="hero-buttons"
+              variants={buttonVariants}
+            >
               <a href="#appointment" className="btn-navbar">
                 Agendar
               </a>
               <a href="#services" className="btn-secondary">
                 Servicios
               </a>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

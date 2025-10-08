@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import './Gallery.css';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
+  const [galleryRef, isGalleryVisible] = useScrollAnimation(0.1);
 
   // Array de todas las imágenes de la galería
   const galleryImages = [
@@ -103,84 +107,167 @@ const Gallery = () => {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isModalOpen, currentIndex]);
 
+  // Variantes de animación
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const galleryVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8,
+      y: 30
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <>
       <section id="gallery" className="gallery-section">
         <div className="container">
-          <div className="gallery-header">
+          <motion.div 
+            ref={headerRef}
+            className="gallery-header"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isHeaderVisible ? "visible" : "hidden"}
+          >
             <h2 className="gallery-title">Nuestro trabajo habla por si solo</h2>
-          </div>
+          </motion.div>
           
-          <div className="gallery-masonry">
-            <div className="gallery-item gallery-item-large">
+          <motion.div 
+            ref={galleryRef}
+            className="gallery-masonry"
+            variants={galleryVariants}
+            initial="hidden"
+            animate={isGalleryVisible ? "visible" : "hidden"}
+          >
+            <motion.div 
+              className="gallery-item gallery-item-large"
+              variants={itemVariants}
+            >
               <img 
                 src={galleryImages[0].thumbnail} 
                 alt={galleryImages[0].alt}
                 onClick={() => openModal(galleryImages[0], 0)}
                 className="gallery-image"
               />
-            </div>
-            <div className="gallery-item">
+            </motion.div>
+            <motion.div 
+              className="gallery-item"
+              variants={itemVariants}
+            >
               <img 
                 src={galleryImages[1].thumbnail} 
                 alt={galleryImages[1].alt}
                 onClick={() => openModal(galleryImages[1], 1)}
                 className="gallery-image"
               />
-            </div>
-            <div className="gallery-item">
+            </motion.div>
+            <motion.div 
+              className="gallery-item"
+              variants={itemVariants}
+            >
               <img 
                 src={galleryImages[2].thumbnail} 
                 alt={galleryImages[2].alt}
                 onClick={() => openModal(galleryImages[2], 2)}
                 className="gallery-image"
               />
-            </div>
-            <div className="gallery-item gallery-item-tall">
+            </motion.div>
+            <motion.div 
+              className="gallery-item gallery-item-tall"
+              variants={itemVariants}
+            >
               <img 
                 src={galleryImages[3].thumbnail} 
                 alt={galleryImages[3].alt}
                 onClick={() => openModal(galleryImages[3], 3)}
                 className="gallery-image"
               />
-            </div>
-            <div className="gallery-item">
+            </motion.div>
+            <motion.div 
+              className="gallery-item"
+              variants={itemVariants}
+            >
               <img 
                 src={galleryImages[4].thumbnail} 
                 alt={galleryImages[4].alt}
                 onClick={() => openModal(galleryImages[4], 4)}
                 className="gallery-image"
               />
-            </div>
-            <div className="gallery-item">
+            </motion.div>
+            <motion.div 
+              className="gallery-item"
+              variants={itemVariants}
+            >
               <img 
                 src={galleryImages[5].thumbnail} 
                 alt={galleryImages[5].alt}
                 onClick={() => openModal(galleryImages[5], 5)}
                 className="gallery-image"
               />
-            </div>
-            <div className="gallery-item gallery-item-tall">
+            </motion.div>
+            <motion.div 
+              className="gallery-item gallery-item-tall"
+              variants={itemVariants}
+            >
               <img 
                 src={galleryImages[6].thumbnail} 
                 alt={galleryImages[6].alt}
                 onClick={() => openModal(galleryImages[6], 6)}
                 className="gallery-image"
               />
-            </div>
-            <div className="gallery-item gallery-item-large">
+            </motion.div>
+            <motion.div 
+              className="gallery-item gallery-item-large"
+              variants={itemVariants}
+            >
               <img 
                 src={galleryImages[7].thumbnail} 
                 alt={galleryImages[7].alt}
                 onClick={() => openModal(galleryImages[7], 7)}
                 className="gallery-image"
               />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
           
-          <div className="gallery-cta">
+          <motion.div 
+            className="gallery-cta"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isGalleryVisible ? "visible" : "hidden"}
+            transition={{ delay: 0.8 }}
+          >
             <p className="gallery-cta-text">¿Querés un estilo así? Reservá tu cita</p>
-          </div>
+          </motion.div>
         </div>
       </section>
 

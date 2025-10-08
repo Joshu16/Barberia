@@ -1,10 +1,12 @@
 import React, { useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { reviews } from '../data/reviews';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import './Reviews.css';
 
 // Componente de estrella personalizada más angular
@@ -26,6 +28,9 @@ const ReviewsCarousel = () => {
   const [activeSlide, setActiveSlide] = React.useState(0);
   const [hoveredCard, setHoveredCard] = React.useState(null);
   const swiperRef = useRef(null);
+  const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
+  const [carouselRef, isCarouselVisible] = useScrollAnimation(0.1);
+  const [ctaRef, isCtaVisible] = useScrollAnimation(0.2);
 
   // Funciones para manejar el hover
   const handleCardMouseEnter = (cardId) => {
@@ -60,15 +65,53 @@ const ReviewsCarousel = () => {
     }
   }, []);
 
+  // Variantes de animación
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const carouselVariants = {
+    hidden: { opacity: 0, y: 80 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: "easeOut",
+        delay: 0.3
+      }
+    }
+  };
+
   return (
     <section id="reviews" className="reviews-section">
       <div className="container">
-        <div className="reviews-header">
+        <motion.div 
+          ref={headerRef}
+          className="reviews-header"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isHeaderVisible ? "visible" : "hidden"}
+        >
           <h2 className="reviews-title">Lo que dicen nuestros clientes</h2>
           <p className="reviews-subtitle">Experiencias reales de quienes confían en nosotros</p>
-        </div>
+        </motion.div>
         
-        <div className="reviews-carousel">
+        <motion.div 
+          ref={carouselRef}
+          className="reviews-carousel"
+          variants={carouselVariants}
+          initial="hidden"
+          animate={isCarouselVisible ? "visible" : "hidden"}
+        >
           <Swiper
             ref={swiperRef}
             modules={[Navigation, Autoplay]}
@@ -134,9 +177,16 @@ const ReviewsCarousel = () => {
           <div className="swiper-button-next">
             <ChevronRight size={16} strokeWidth={1} />
           </div>
-        </div>
+        </motion.div>
         
-        <div className="reviews-cta">
+        <motion.div 
+          ref={ctaRef}
+          className="reviews-cta"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isCtaVisible ? "visible" : "hidden"}
+          transition={{ delay: 0.6 }}
+        >
           <h3 className="cta-title">¿Tuviste una buena experiencia?</h3>
           <p className="cta-subtitle">Ayúdanos compartiendo tu opinión en Google</p>
           <a 
@@ -148,7 +198,7 @@ const ReviewsCarousel = () => {
             <ExternalLink size={16} />
             Dejar Reseña en Google
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

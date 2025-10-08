@@ -1,16 +1,20 @@
 import React, { useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { services } from '../data/services';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import './Services.css';
 
 const Services = () => {
   const [activeSlide, setActiveSlide] = React.useState(0);
   const [isHovering, setIsHovering] = React.useState(false);
   const swiperRef = useRef(null);
+  const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
+  const [carouselRef, isCarouselVisible] = useScrollAnimation(0.1);
 
   // Controlar autoplay basado en hover
   useEffect(() => {
@@ -24,15 +28,52 @@ const Services = () => {
   }, [isHovering]);
 
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const carouselVariants = {
+    hidden: { opacity: 0, y: 80 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: "easeOut",
+        delay: 0.3
+      }
+    }
+  };
+
   return (
     <section id="services" className="services-section">
       <div className="container">
-        <div className="services-header">
+        <motion.div 
+          ref={headerRef}
+          className="services-header"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isHeaderVisible ? "visible" : "hidden"}
+        >
           <h2 className="services-title">Nuestros Servicios</h2>
           <p className="services-subtitle">Descubre nuestra gama completa de servicios profesionales</p>
-        </div>
+        </motion.div>
         
-        <div className={`services-carousel ${isHovering ? 'has-hover' : ''}`}>
+        <motion.div 
+          ref={carouselRef}
+          className={`services-carousel ${isHovering ? 'has-hover' : ''}`}
+          variants={carouselVariants}
+          initial="hidden"
+          animate={isCarouselVisible ? "visible" : "hidden"}
+        >
           <Swiper
             ref={swiperRef}
             modules={[Navigation, Autoplay]}
@@ -96,16 +137,22 @@ const Services = () => {
           <div className="swiper-button-next">
             <ChevronRight size={16} strokeWidth={1} />
           </div>
-        </div>
+        </motion.div>
         
-        <div className="custom-pagination">
+        <motion.div 
+          className="custom-pagination"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isCarouselVisible ? "visible" : "hidden"}
+          transition={{ delay: 0.6 }}
+        >
           {services.map((_, index) => (
             <button
               key={index}
               className={`pagination-dot ${index === activeSlide ? 'active' : ''}`}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

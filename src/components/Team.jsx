@@ -1,18 +1,93 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import './Team.css';
 
 const Team = () => {
+  const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
+  const [mainBarberRef, isMainBarberVisible] = useScrollAnimation(0.1);
+  const [teamMembersRef, isTeamMembersVisible] = useScrollAnimation(0.1);
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 80,
+      scale: 0.9
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const membersVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const memberVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.9
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <section id="team" className="team-section">
       <div className="container">
-        <div className="team-header">
+        <motion.div 
+          ref={headerRef}
+          className="team-header"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isHeaderVisible ? "visible" : "hidden"}
+        >
           <h2 className="team-title">Nuestro Equipo</h2>
           <p className="team-subtitle">Profesionales dedicados a tu estilo</p>
-        </div>
+        </motion.div>
         
         <div className="team-container">
           {/* Main Barber - Roxana */}
-          <div className="main-barber-card">
+          <motion.div 
+            ref={mainBarberRef}
+            className="main-barber-card"
+            variants={cardVariants}
+            initial="hidden"
+            animate={isMainBarberVisible ? "visible" : "hidden"}
+          >
             <div className="barber-image">
               <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=500&fit=crop&q=80" alt="Roxana - Barbera Principal" />
               <div className="barber-overlay">
@@ -33,34 +108,49 @@ const Team = () => {
                 <span className="specialty">Estilos Modernos</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Team Members */}
-          <div className="team-members">
-            <div className="team-member-card">
+          <motion.div 
+            ref={teamMembersRef}
+            className="team-members"
+            variants={membersVariants}
+            initial="hidden"
+            animate={isTeamMembersVisible ? "visible" : "hidden"}
+          >
+            <motion.div 
+              className="team-member-card"
+              variants={memberVariants}
+            >
               <div className="member-image">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&q=80" alt="Carlos" />
               </div>
               <h4 className="member-name">Carlos</h4>
               <p className="member-role">Barbero</p>
-            </div>
+            </motion.div>
             
-            <div className="team-member-card">
+            <motion.div 
+              className="team-member-card"
+              variants={memberVariants}
+            >
               <div className="member-image">
                 <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&q=80" alt="Miguel" />
               </div>
               <h4 className="member-name">Miguel</h4>
               <p className="member-role">Barbero</p>
-            </div>
+            </motion.div>
             
-            <div className="team-member-card">
+            <motion.div 
+              className="team-member-card"
+              variants={memberVariants}
+            >
               <div className="member-image">
                 <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&q=80" alt="Diego" />
               </div>
               <h4 className="member-name">Diego</h4>
               <p className="member-role">Barbero</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

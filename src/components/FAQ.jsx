@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import './FAQ.css';
 
 const FAQ = () => {
   const [showAll, setShowAll] = useState(false);
   const [openItems, setOpenItems] = useState({});
+  const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
+  const [faqRef, isFaqVisible] = useScrollAnimation(0.1);
 
   const faqData = [
     {
@@ -49,19 +53,76 @@ const FAQ = () => {
     }));
   };
 
+  // Variantes de animación
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const faqVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30,
+      scale: 0.95
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <section id="faq" className="faq-section">
       <div className="container">
-        <div className="faq-header">
+        <motion.div 
+          ref={headerRef}
+          className="faq-header"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isHeaderVisible ? "visible" : "hidden"}
+        >
           <h2 className="faq-title">Preguntas Frecuentes</h2>
           <p className="faq-subtitle">
             Resolvemos las dudas más comunes sobre nuestros servicios y procesos
           </p>
-        </div>
+        </motion.div>
 
-        <div className="faq-container">
+        <motion.div 
+          ref={faqRef}
+          className="faq-container"
+          variants={faqVariants}
+          initial="hidden"
+          animate={isFaqVisible ? "visible" : "hidden"}
+        >
           {displayedFAQs.map((faq, index) => (
-            <div key={index} className="faq-item">
+            <motion.div 
+              key={index} 
+              className="faq-item"
+              variants={itemVariants}
+            >
               <div 
                 className="faq-question"
                 onClick={() => toggleItem(index)}
@@ -82,30 +143,42 @@ const FAQ = () => {
               <div className={`faq-answer ${openItems[index] ? 'open' : ''}`}>
                 <p>{faq.answer}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {!showAll && (
-          <div className="faq-actions">
+          <motion.div 
+            className="faq-actions"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isFaqVisible ? "visible" : "hidden"}
+            transition={{ delay: 0.4 }}
+          >
             <button 
               className="btn-show-more"
               onClick={() => setShowAll(true)}
             >
               Ver más
             </button>
-          </div>
+          </motion.div>
         )}
 
         {showAll && (
-          <div className="faq-actions">
+          <motion.div 
+            className="faq-actions"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isFaqVisible ? "visible" : "hidden"}
+            transition={{ delay: 0.4 }}
+          >
             <button 
               className="btn-show-less"
               onClick={() => setShowAll(false)}
             >
               Ver menos
             </button>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>
