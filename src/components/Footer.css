@@ -248,12 +248,12 @@
 
 @media (max-width: 768px) {
   .footer {
-    padding: 2.5rem 0 1.25rem 0;
+    padding: 2rem 0 1.25rem 0;
   }
   
   .footer-content {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
   
   .footer-section:first-child {
@@ -285,11 +285,11 @@
 
 @media (max-width: 480px) {
   .footer {
-    padding: 2rem 0 1rem 0;
+    padding: 1.5rem 0 1rem 0;
   }
   
   .footer-content {
-    gap: 1.5rem;
+    gap: 1rem;
   }
   
   .footer-section h4 {

@@ -210,7 +210,7 @@
 
 @media (max-width: 768px) {
   .map-section {
-    min-height: 100vh;
+    min-height: auto;
     padding: 2rem 0;
   }
   
@@ -244,7 +244,7 @@
   }
   
   .map-header {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
   
   .map-cta {
@@ -254,7 +254,7 @@
 
 @media (max-width: 480px) {
   .map-section {
-    min-height: 100vh;
+    min-height: auto;
     padding: 1.5rem 0;
   }
   
@@ -298,6 +298,10 @@
   }
   
   .map-cta {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .map-header {
+    margin-bottom: 1rem;
   }
 }
