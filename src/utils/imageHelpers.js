@@ -31,3 +31,4 @@ export function hasImage(item) {
   return isValidImageUrl(imageUrl);
 }
 
+

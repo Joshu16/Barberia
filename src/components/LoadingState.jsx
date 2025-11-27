@@ -14,3 +14,4 @@ export const EmptyState = ({ message = 'No hay datos disponibles' }) => (
   </div>
 );
 
+

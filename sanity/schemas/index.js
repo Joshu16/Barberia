@@ -15,3 +15,4 @@ export const schemaTypes = [
   siteSettings,
 ]
 
+
