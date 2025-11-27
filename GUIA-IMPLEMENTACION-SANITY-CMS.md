@@ -138,7 +138,7 @@ export default defineConfig({
 })
 ```
 
-### Paso 1.6: Verificar Instalación
+### Paso 1.6: Verificar Instalación (Local)
 
 ```bash
 cd sanity
@@ -146,6 +146,21 @@ npm run dev
 ```
 
 Deberías ver el panel de Sanity en `http://localhost:3333`
+
+### Paso 1.7: Acceso al Panel de Sanity
+
+El cliente puede acceder al panel de administración desde cualquier lugar:
+
+1. Ve a: **https://www.sanity.io/manage**
+2. Inicia sesión con su cuenta de Sanity
+3. Selecciona el proyecto
+4. Accede al panel de administración directamente desde la web
+
+**Importante:**
+- No necesitas desplegar nada, el acceso es directo desde manage.sanity.io
+- El cliente puede acceder desde cualquier dispositivo
+- Los cambios se guardan automáticamente
+- Para desarrollo local, usa `npm run dev` en la carpeta `sanity/`
 
 ---
 
