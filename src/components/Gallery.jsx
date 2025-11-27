@@ -5,6 +5,7 @@ import { useGalleryImages } from '../hooks/useSanityData';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useBooking } from '../contexts/BookingContext';
 import { LoadingState, EmptyState } from './LoadingState';
+import { getImageUrl, hasImage } from '../utils/imageHelpers';
 import './Gallery.css';
 
 const Gallery = () => {
@@ -18,32 +19,18 @@ const Gallery = () => {
 
   // Transformar datos de Sanity al formato que usa el componente
   const galleryImages = useMemo(() => {
-    if (!galleryData) {
-      console.log('🔴 No hay galleryData');
-      return [];
-    }
+    if (!galleryData) return [];
     
-    const images = galleryData.map((item) => {
-      const imageUrl = item.imageUrl || item.image?.asset?.url || null;
-      const hasImage = imageUrl && imageUrl.trim() !== '';
-      console.log('🖼️ Gallery item:', { 
-        alt: item.alt, 
-        imageUrl, 
-        hasImage,
-        type: typeof imageUrl
-      });
-      // Usar la misma URL para src y thumbnail (Sanity maneja el tamaño automáticamente)
+    return galleryData.map((item) => {
+      const imageUrl = getImageUrl(item);
       return {
         src: imageUrl,
         alt: item.alt || '',
         thumbnail: imageUrl,
         _id: item._id,
-        hasImage: hasImage
+        hasImage: hasImage(item)
       };
     });
-    
-    console.log('✅ Total galleryImages:', images.length, 'Con imagen:', images.filter(i => i.hasImage).length);
-    return images;
   }, [galleryData]);
 
   // Función para abrir el modal
@@ -157,17 +144,14 @@ const Gallery = () => {
           {!loading && (!galleryImages || galleryImages.length === 0) && (
             <EmptyState message="No hay imágenes en la galería. Sube imágenes desde el panel de Sanity." />
           )}
-          {(() => {
-            if (!loading && galleryImages && galleryImages.length > 0) {
-              console.log('🎨 Renderizando galería con', galleryImages.length, 'items');
-              return (
-          <motion.div 
-            ref={galleryRef}
-            className="gallery-masonry"
-            variants={galleryVariants}
-            initial="hidden"
-            animate={isGalleryVisible ? "visible" : "visible"}
-          >
+          {!loading && galleryImages && galleryImages.length > 0 && (
+            <motion.div 
+              ref={galleryRef}
+              className="gallery-masonry"
+              variants={galleryVariants}
+              initial="hidden"
+              animate="visible"
+            >
             {galleryImages.map((image, index) => {
               // Determinar el tamaño de la imagen basado en su posición
               let itemClass = 'gallery-item';
@@ -192,13 +176,7 @@ const Gallery = () => {
                       onClick={() => openModal(image, index)}
                       className="gallery-image"
                       onError={(e) => {
-                        console.error('Error loading image:', image.thumbnail);
                         e.target.style.display = 'none';
-                        // Mostrar placeholder si la imagen falla
-                        const placeholder = document.createElement('div');
-                        placeholder.className = 'gallery-image-placeholder';
-                        placeholder.innerHTML = '<span>Error al cargar</span>';
-                        e.target.parentElement?.appendChild(placeholder);
                       }}
                     />
                   ) : (
@@ -213,10 +191,7 @@ const Gallery = () => {
               );
             })}
           </motion.div>
-              );
-            }
-            return null;
-          })()}
+          )}
           
           <motion.div 
             className="gallery-cta"

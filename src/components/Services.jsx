@@ -9,6 +9,7 @@ import { useServices } from '../hooks/useSanityData';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useBooking } from '../contexts/BookingContext';
 import { LoadingState, EmptyState } from './LoadingState';
+import { getImageUrl, hasImage } from '../utils/imageHelpers';
 import './Services.css';
 
 const Services = () => {
@@ -20,11 +21,6 @@ const Services = () => {
   const [carouselRef, isCarouselVisible] = useScrollAnimation(0.1);
   const { openBookingModal } = useBooking();
 
-  // Debug logs
-  React.useEffect(() => {
-    console.log('🔧 Services state:', { loading, error, servicesCount: services?.length, services });
-  }, [loading, error, services]);
-
   // Controlar autoplay basado en hover
   useEffect(() => {
     if (swiperRef.current && swiperRef.current.swiper) {
@@ -35,7 +31,6 @@ const Services = () => {
       }
     }
   }, [isHovering]);
-
 
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -124,9 +119,8 @@ const Services = () => {
                 className="services-swiper"
               >
             {services.map((service) => {
-              const imageUrl = service.imageUrl || service.image?.asset?.url || null;
-              const hasImage = imageUrl && imageUrl.trim() !== '';
-              console.log('🖼️ Service:', { title: service.title, imageUrl, hasImage });
+              const imageUrl = getImageUrl(service);
+              const serviceHasImage = hasImage(service);
               return (
                     <SwiperSlide key={service._id}>
                       <div 
@@ -135,7 +129,7 @@ const Services = () => {
                         onMouseLeave={() => setIsHovering(false)}
                       >
                         <div className="service-image">
-                          {hasImage ? (
+                          {serviceHasImage ? (
                             <img src={imageUrl} alt={service.title} />
                           ) : (
                             <div className="service-image-placeholder">

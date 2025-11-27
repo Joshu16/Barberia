@@ -3,13 +3,14 @@ import { motion } from 'framer-motion';
 import { useTeamMembers } from '../hooks/useSanityData';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { LoadingState, EmptyState } from './LoadingState';
+import { getImageUrl, hasImage } from '../utils/imageHelpers';
 import './Team.css';
 
 const Team = () => {
   const { data: teamData, loading, error } = useTeamMembers();
   const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
-  const [mainBarberRef, isMainBarberVisible] = useScrollAnimation(0.1);
-  const [teamMembersRef, isTeamMembersVisible] = useScrollAnimation(0.1);
+  const [mainBarberRef] = useScrollAnimation(0.1);
+  const [teamMembersRef] = useScrollAnimation(0.1);
 
   // Separar el barbero principal de los demás
   const { mainBarber, otherMembers } = useMemo(() => {
@@ -21,18 +22,6 @@ const Team = () => {
     return { mainBarber: main, otherMembers: others };
   }, [teamData]);
 
-  // Debug logs
-  React.useEffect(() => {
-    console.log('👥 Team state:', { 
-      loading, 
-      error,
-      teamDataCount: teamData?.length, 
-      teamData,
-      mainBarber, 
-      otherMembersCount: otherMembers?.length,
-      otherMembers
-    });
-  }, [loading, error, teamData, mainBarber, otherMembers]);
 
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -121,19 +110,14 @@ const Team = () => {
               animate="visible"
             >
               <div className="barber-image">
-                {(() => {
-                  const imageUrl = mainBarber.imageUrl || mainBarber.image?.asset?.url || null;
-                  const hasImage = imageUrl && imageUrl.trim() !== '';
-                  console.log('👔 Main barber:', { name: mainBarber.name, imageUrl, hasImage });
-                  return hasImage ? (
-                    <img src={imageUrl} alt={`${mainBarber.name} - ${mainBarber.role}`} />
-                  ) : (
-                    <div className="barber-image-placeholder">
-                      <span>Sin imagen</span>
-                      <small>Sube desde Sanity</small>
-                    </div>
-                  );
-                })()}
+                {hasImage(mainBarber) ? (
+                  <img src={getImageUrl(mainBarber)} alt={`${mainBarber.name} - ${mainBarber.role}`} />
+                ) : (
+                  <div className="barber-image-placeholder">
+                    <span>Sin imagen</span>
+                    <small>Sube desde Sanity</small>
+                  </div>
+                )}
                 <div className="barber-overlay">
                   <div className="barber-badge">Principal</div>
                 </div>
@@ -174,11 +158,7 @@ const Team = () => {
               initial="visible"
               animate="visible"
             >
-              {otherMembers.map((member) => {
-                const imageUrl = member.imageUrl || member.image?.asset?.url || null;
-                const hasImage = imageUrl && imageUrl.trim() !== '';
-                console.log('👤 Team member:', { name: member.name, imageUrl, hasImage });
-                return (
+              {otherMembers.map((member) => (
                 <motion.div 
                   key={member._id}
                   className="team-member-card"
@@ -187,8 +167,8 @@ const Team = () => {
                   animate="visible"
                 >
                   <div className="member-image">
-                    {hasImage ? (
-                      <img src={imageUrl} alt={member.name} />
+                    {hasImage(member) ? (
+                      <img src={getImageUrl(member)} alt={member.name} />
                     ) : (
                       <div className="member-image-placeholder">
                         <span>Sin imagen</span>
@@ -199,8 +179,7 @@ const Team = () => {
                   <h4 className="member-name">{member.name}</h4>
                   <p className="member-role">{member.role}</p>
                 </motion.div>
-              );
-              })}
+              ))}
             </motion.div>
           )}
         </div>

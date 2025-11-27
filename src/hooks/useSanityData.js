@@ -23,20 +23,13 @@ export function useSanityData(queryKey, options = {}) {
           throw new Error(`Query "${queryKey}" no encontrada`)
         }
 
-        console.log(`📤 Fetching ${queryKey}...`)
         const result = await client.fetch(query)
-        console.log(`✅ ${queryKey} loaded:`, result?.length || (result ? 1 : 0), 'items')
-        if (result && result.length > 0) {
-          console.log(`📋 First item:`, result[0])
-        }
         setData(result)
       } catch (err) {
-        console.error(`❌ Error fetching ${queryKey}:`, err)
-        console.error('Error details:', {
-          message: err.message,
-          statusCode: err.statusCode,
-          response: err.response
-        })
+        // Solo loguear errores críticos en producción
+        if (process.env.NODE_ENV === 'development') {
+          console.error(`Error fetching ${queryKey}:`, err)
+        }
         setError(err)
         // En caso de error, retornar datos vacíos en lugar de null
         setData([])
