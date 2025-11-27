@@ -63,6 +63,25 @@ Si prefieres hacerlo todo manualmente desde el panel:
 ### Imágenes de Galería (8)
 - Las 8 imágenes definidas en `src/components/Gallery.jsx`
 
+## Inicializar Configuración del Sitio
+
+Para crear el documento inicial de configuración del sitio:
+
+**En Windows PowerShell:**
+```powershell
+cd sanity
+$env:SANITY_API_TOKEN="tu_token_aqui"
+node scripts/init-site-settings.js
+```
+
+**En Linux/Mac:**
+```bash
+cd sanity
+SANITY_API_TOKEN=tu_token_aqui node scripts/init-site-settings.js
+```
+
+Esto creará el documento "Configuración del Sitio" con datos iniciales que puedes editar desde el panel.
+
 ## Verificación
 
 Después de la migración, verifica que:
@@ -70,4 +89,5 @@ Después de la migración, verifica que:
 - ✅ Todas las reviews están completas
 - ✅ Todas las imágenes de galería están subidas
 - ✅ Los órdenes están correctos (0, 1, 2, etc.)
+- ✅ La configuración del sitio está creada y publicada
 
