@@ -76,6 +76,14 @@ const siteSettings = {
     {
       question: '¿Tienen productos para la venta?',
       answer: 'Sí, contamos con una selección cuidadosa de productos premium para el cuidado del cabello y la barba, incluyendo pomadas, aceites, champús especializados y herramientas de grooming.'
+    },
+    {
+      question: '¿Ofrecen servicios para niños?',
+      answer: 'Sí, atendemos a niños de todas las edades. Nuestro equipo está capacitado para hacer que la experiencia sea cómoda y divertida para los más pequeños.'
+    },
+    {
+      question: '¿Qué medidas de higiene implementan?',
+      answer: 'Mantenemos los más altos estándares de higiene. Todos nuestros instrumentos se esterilizan después de cada uso, utilizamos productos desechables cuando es posible, y mantenemos el local impecablemente limpio.'
     }
   ]
 }

@@ -2,37 +2,18 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useSiteSettings } from '../hooks/useSanityData';
+import { LoadingState, EmptyState } from './LoadingState';
 import './FAQ.css';
 
 const FAQ = () => {
-  const { data: settings } = useSiteSettings();
+  const { data: settings, loading } = useSiteSettings();
   const [showAll, setShowAll] = useState(false);
   const [openItems, setOpenItems] = useState({});
   const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
   const [faqRef, isFaqVisible] = useScrollAnimation(0.1);
 
-  // Usar FAQ de Sanity o datos por defecto
-  const faqData = settings?.faq && settings.faq.length > 0 
-    ? settings.faq 
-    : [
-        {
-          question: "¿Cuáles son los horarios de atención?",
-          answer: "Nuestro horario es de lunes a sábado de 9:00 AM a 7:00 PM. Los domingos estamos cerrados para que nuestro equipo pueda descansar y estar al 100% para la próxima semana."
-        },
-        {
-          question: "¿Necesito agendar una cita o puedo llegar sin cita?",
-          answer: "Recomendamos agendar tu cita con anticipación para garantizar tu lugar. Aunque aceptamos clientes sin cita, el tiempo de espera puede variar según la disponibilidad del momento."
-        },
-        {
-          question: "¿Qué servicios ofrecen?",
-          answer: "Ofrecemos cortes de cabello clásicos y modernos, arreglo de barba, tratamientos faciales, servicios de grooming premium, y productos especializados para el cuidado personal masculino."
-        },
-        {
-          question: "¿Cuánto tiempo dura una sesión promedio?",
-          answer: "Un corte de cabello estándar toma entre 30-45 minutos, mientras que un servicio completo con barba puede durar hasta 60 minutos. Esto nos permite dedicar el tiempo necesario para lograr la perfección."
-        }
-      ];
-
+  // Solo usar FAQ de Sanity, sin fallback
+  const faqData = settings?.faq || [];
   const displayedFAQs = showAll ? faqData : faqData.slice(0, 4);
 
   const toggleItem = (index) => {
@@ -99,6 +80,11 @@ const FAQ = () => {
           </p>
         </motion.div>
 
+        {loading && <LoadingState message="Cargando preguntas frecuentes..." />}
+        {!loading && faqData.length === 0 && (
+          <EmptyState message="No hay preguntas frecuentes disponibles. Agrega preguntas desde el panel de Sanity." />
+        )}
+        {!loading && faqData.length > 0 && (
         <motion.div 
           ref={faqRef}
           className="faq-container"
@@ -135,8 +121,9 @@ const FAQ = () => {
             </motion.div>
           ))}
         </motion.div>
+        )}
 
-        {!showAll && (
+        {!loading && faqData.length > 0 && !showAll && faqData.length > 4 && (
           <motion.div 
             className="faq-actions"
             variants={containerVariants}
@@ -153,7 +140,7 @@ const FAQ = () => {
           </motion.div>
         )}
 
-        {showAll && (
+        {!loading && faqData.length > 0 && showAll && faqData.length > 4 && (
           <motion.div 
             className="faq-actions"
             variants={containerVariants}
