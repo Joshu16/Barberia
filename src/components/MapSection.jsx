@@ -3,20 +3,21 @@ import { motion } from 'framer-motion';
 import { MapPin, Clock, Phone } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useBooking } from '../contexts/BookingContext';
+import { useSiteSettings } from '../hooks/useSanityData';
 import './MapSection.css';
 
 const MapSection = () => {
-  const address = "Barberia Roxana, WQ74+RVR, Av. Central, San José, Cd Colón";
-  const phone = "+506 8382 3505";
-  const email = "info@barberiaroxana.com";
-  const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=Barberia+Roxana+WQ74%2BRVR+Av.+Central+San+José+Cd+Colón";
-  
+  const { data: settings } = useSiteSettings();
   const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
   const [mapRef, isMapVisible] = useScrollAnimation(0.1);
   const [infoRef, isInfoVisible] = useScrollAnimation(0.1);
   const { openBookingModal } = useBooking();
 
-  const schedule = [
+  const address = settings?.address || "Barberia Roxana, WQ74+RVR, Av. Central, San José, Cd Colón";
+  const phone = settings?.phone || "+506 8382 3505";
+  const email = settings?.email || "info@barberiaroxana.com";
+  const googleMapsUrl = settings?.googleMapsUrl || "https://www.google.com/maps/search/?api=1&query=Barberia+Roxana+WQ74%2BRVR+Av.+Central+San+José+Cd+Colón";
+  const schedule = settings?.schedule || [
     { day: "Lunes - Viernes", hours: "9:00 AM - 7:00 PM" },
     { day: "Sábados", hours: "8:00 AM - 6:00 PM" },
     { day: "Domingos", hours: "10:00 AM - 4:00 PM" }
@@ -102,16 +103,22 @@ const MapSection = () => {
             initial="hidden"
             animate={isMapVisible ? "visible" : "hidden"}
           >
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.123456789!2d-84.123456!3d9.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0ff16b05f60a9%3A0x815510e63ca4f416!2sBarberia%20Roxana!5e0!3m2!1ses!2scr!4v1234567890123!5m2!1ses!2scr"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Ubicación de Barberia Roxana"
-            />
+            {googleMapsUrl ? (
+              <iframe
+                src={googleMapsUrl.includes('embed') ? googleMapsUrl : `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.123456789!2d-84.123456!3d9.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0ff16b05f60a9%3A0x815510e63ca4f416!2sBarberia%20Roxana!5e0!3m2!1ses!2scr!4v1234567890123!5m2!1ses!2scr`}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Ubicación de Barberia Roxana"
+              />
+            ) : (
+              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#1a1a1a', color: '#999' }}>
+                <p>Mapa no disponible</p>
+              </div>
+            )}
           </motion.div>
           
           <motion.div 

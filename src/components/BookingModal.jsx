@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, User, Scissors, Clock } from 'lucide-react';
+import { useSiteSettings } from '../hooks/useSanityData';
 import './BookingModal.css';
 
 const BookingModal = ({ isOpen, onClose }) => {
+  const { data: settings } = useSiteSettings();
   const [formData, setFormData] = useState({
     name: '',
     service: '',
@@ -14,6 +16,9 @@ const BookingModal = ({ isOpen, onClose }) => {
 
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Obtener número de WhatsApp para agenda
+  const whatsappNumber = settings?.socialMedia?.whatsappBooking || settings?.socialMedia?.whatsapp || '50683823505';
 
   // Servicios disponibles (se actualizará con datos reales)
   const services = [
@@ -112,7 +117,8 @@ const BookingModal = ({ isOpen, onClose }) => {
 ¿Está disponible este horario?`;
 
     // Redirigir a WhatsApp
-    const whatsappUrl = `https://wa.me/50683823505?text=${encodeURIComponent(message)}`;
+    const cleanNumber = whatsappNumber.replace(/[^0-9]/g, '');
+    const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     
     setIsSubmitting(false);

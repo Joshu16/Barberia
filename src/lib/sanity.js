@@ -72,7 +72,13 @@ export const queries = {
     address,
     googleMapsUrl,
     schedule,
-    socialMedia
+    socialMedia {
+      facebook,
+      instagram,
+      whatsapp,
+      whatsappBooking
+    },
+    faq
   }`,
 }
 

@@ -91,8 +91,21 @@ export default {
       fields: [
         {name: 'facebook', title: 'Facebook URL', type: 'url'},
         {name: 'instagram', title: 'Instagram URL', type: 'url'},
-        {name: 'whatsapp', title: 'WhatsApp', type: 'string'}
+        {name: 'whatsapp', title: 'WhatsApp', type: 'string'},
+        {name: 'whatsappBooking', title: 'WhatsApp para Agenda', type: 'string', description: 'Número de WhatsApp al que llegarán las reservas (ej: +506 8382 3505)'}
       ]
+    },
+    {
+      name: 'faq',
+      title: 'Preguntas Frecuentes',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          {name: 'question', title: 'Pregunta', type: 'string', validation: Rule => Rule.required()},
+          {name: 'answer', title: 'Respuesta', type: 'text', validation: Rule => Rule.required()}
+        ]
+      }]
     }
   ],
   preview: {
