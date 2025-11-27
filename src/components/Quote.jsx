@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useSiteSettings } from '../hooks/useSanityData';
 import './Quote.css';
 
 const Quote = () => {
+  const { data: settings } = useSiteSettings();
   const [currentText, setCurrentText] = useState('');
   const [showSecond, setShowSecond] = useState(false);
 
-  const fullText = "Tu peinado es tu carta de presentación.";
+  const fullText = settings?.quoteText || "Tu peinado es tu carta de presentación.";
 
   useEffect(() => {
     let index = 0;

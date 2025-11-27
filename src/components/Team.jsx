@@ -1,12 +1,38 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { useTeamMembers } from '../hooks/useSanityData';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { LoadingState, EmptyState } from './LoadingState';
 import './Team.css';
 
 const Team = () => {
+  const { data: teamData, loading, error } = useTeamMembers();
   const [headerRef, isHeaderVisible] = useScrollAnimation(0.2);
   const [mainBarberRef, isMainBarberVisible] = useScrollAnimation(0.1);
   const [teamMembersRef, isTeamMembersVisible] = useScrollAnimation(0.1);
+
+  // Separar el barbero principal de los demás
+  const { mainBarber, otherMembers } = useMemo(() => {
+    if (!teamData) return { mainBarber: null, otherMembers: [] };
+    
+    const main = teamData.find(member => member.isMain);
+    const others = teamData.filter(member => !member.isMain);
+    
+    return { mainBarber: main, otherMembers: others };
+  }, [teamData]);
+
+  // Debug logs
+  React.useEffect(() => {
+    console.log('👥 Team state:', { 
+      loading, 
+      error,
+      teamDataCount: teamData?.length, 
+      teamData,
+      mainBarber, 
+      otherMembersCount: otherMembers?.length,
+      otherMembers
+    });
+  }, [loading, error, teamData, mainBarber, otherMembers]);
 
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -79,80 +105,104 @@ const Team = () => {
           <p className="team-subtitle">Profesionales dedicados a tu estilo</p>
         </motion.div>
         
+        {loading && <LoadingState message="Cargando equipo..." />}
+        {error && <EmptyState message="Error al cargar el equipo. Por favor, recarga la página." />}
+        {!loading && !error && (!teamData || teamData.length === 0) && (
+          <EmptyState message="No hay miembros del equipo. Agrega miembros desde el panel de Sanity." />
+        )}
         <div className="team-container">
-          {/* Main Barber - Roxana */}
-          <motion.div 
-            ref={mainBarberRef}
-            className="main-barber-card"
-            variants={cardVariants}
-            initial="hidden"
-            animate={isMainBarberVisible ? "visible" : "hidden"}
-          >
-            <div className="barber-image">
-              <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=500&fit=crop&q=80" alt="Roxana - Barbera Principal" />
-              <div className="barber-overlay">
-                <div className="barber-badge">Principal</div>
+          {/* Main Barber */}
+          {!loading && mainBarber && (
+            <motion.div 
+              ref={mainBarberRef}
+              className="main-barber-card"
+              variants={cardVariants}
+              initial="visible"
+              animate="visible"
+            >
+              <div className="barber-image">
+                {(() => {
+                  const imageUrl = mainBarber.imageUrl || mainBarber.image?.asset?.url || null;
+                  const hasImage = imageUrl && imageUrl.trim() !== '';
+                  console.log('👔 Main barber:', { name: mainBarber.name, imageUrl, hasImage });
+                  return hasImage ? (
+                    <img src={imageUrl} alt={`${mainBarber.name} - ${mainBarber.role}`} />
+                  ) : (
+                    <div className="barber-image-placeholder">
+                      <span>Sin imagen</span>
+                      <small>Sube desde Sanity</small>
+                    </div>
+                  );
+                })()}
+                <div className="barber-overlay">
+                  <div className="barber-badge">Principal</div>
+                </div>
               </div>
-            </div>
-            <div className="barber-content">
-              <h3 className="barber-name">Roxana</h3>
-              <p className="barber-title">Barbera Principal</p>
-              <p className="barber-description">
-                Con más de 10 años de experiencia, especialista en cortes clásicos y modernos. 
-                Su pasión por la perfección garantiza resultados excepcionales.
-              </p>
-              <div className="barber-specialties">
-                <span className="specialty">Cortes Clásicos</span>
-                <span className="specialty">Barba Premium</span>
-                <span className="specialty">Estilos Modernos</span>
+              <div className="barber-content">
+                <h3 className="barber-name">{mainBarber.name}</h3>
+                <p className="barber-title">{mainBarber.role}</p>
+                {mainBarber.description && (
+                  <p className="barber-description">{mainBarber.description}</p>
+                )}
+                {mainBarber.specialties && mainBarber.specialties.length > 0 && (
+                  <div className="barber-specialties">
+                    {mainBarber.specialties.map((specialty, index) => (
+                      <span key={index} className="specialty">{specialty}</span>
+                    ))}
+                  </div>
+                )}
+                {mainBarber.requiresBooking && (
+                  <div className="barber-requires-booking">
+                    <span className="booking-required">Requiere agendar</span>
+                  </div>
+                )}
               </div>
-              <div className="barber-requires-booking">
-                <span className="booking-required">Requiere agendar</span>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          )}
 
           {/* Team Members */}
-          <motion.div 
-            ref={teamMembersRef}
-            className="team-members"
-            variants={membersVariants}
-            initial="hidden"
-            animate={isTeamMembersVisible ? "visible" : "hidden"}
-          >
+          {!loading && (!otherMembers || otherMembers.length === 0) && mainBarber && (
+            <div style={{ textAlign: 'center', color: '#999', padding: '2rem' }}>
+              <p>No hay otros miembros del equipo.</p>
+            </div>
+          )}
+          {!loading && otherMembers && otherMembers.length > 0 && (
             <motion.div 
-              className="team-member-card"
-              variants={memberVariants}
+              ref={teamMembersRef}
+              className="team-members"
+              variants={membersVariants}
+              initial="visible"
+              animate="visible"
             >
-              <div className="member-image">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&q=80" alt="Carlos" />
-              </div>
-              <h4 className="member-name">Carlos</h4>
-              <p className="member-role">Barbero</p>
+              {otherMembers.map((member) => {
+                const imageUrl = member.imageUrl || member.image?.asset?.url || null;
+                const hasImage = imageUrl && imageUrl.trim() !== '';
+                console.log('👤 Team member:', { name: member.name, imageUrl, hasImage });
+                return (
+                <motion.div 
+                  key={member._id}
+                  className="team-member-card"
+                  variants={memberVariants}
+                  initial="visible"
+                  animate="visible"
+                >
+                  <div className="member-image">
+                    {hasImage ? (
+                      <img src={imageUrl} alt={member.name} />
+                    ) : (
+                      <div className="member-image-placeholder">
+                        <span>Sin imagen</span>
+                        <small>Sube desde Sanity</small>
+                      </div>
+                    )}
+                  </div>
+                  <h4 className="member-name">{member.name}</h4>
+                  <p className="member-role">{member.role}</p>
+                </motion.div>
+              );
+              })}
             </motion.div>
-            
-            <motion.div 
-              className="team-member-card"
-              variants={memberVariants}
-            >
-              <div className="member-image">
-                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&q=80" alt="Miguel" />
-              </div>
-              <h4 className="member-name">Miguel</h4>
-              <p className="member-role">Barbero</p>
-            </motion.div>
-            
-            <motion.div 
-              className="team-member-card"
-              variants={memberVariants}
-            >
-              <div className="member-image">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&q=80" alt="Diego" />
-              </div>
-              <h4 className="member-name">Diego</h4>
-              <p className="member-role">Barbero</p>
-            </motion.div>
-          </motion.div>
+          )}
         </div>
       </div>
     </section>

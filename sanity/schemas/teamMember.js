@@ -23,7 +23,8 @@ export default {
       options: {
         hotspot: true
       },
-      validation: Rule => Rule.required()
+      // Imagen opcional - puede agregarse después
+      validation: Rule => Rule.optional()
     },
     {
       name: 'description',

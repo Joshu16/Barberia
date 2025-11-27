@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { reviews } from '../data/reviews';
+import { useReviews } from '../hooks/useSanityData';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useBooking } from '../contexts/BookingContext';
 import './Reviews.css';
@@ -26,6 +26,7 @@ const AngularStar = ({ filled, size = 16 }) => (
 );
 
 const ReviewsCarousel = () => {
+  const { data: reviews, loading } = useReviews();
   const [activeSlide, setActiveSlide] = React.useState(0);
   const [hoveredCard, setHoveredCard] = React.useState(null);
   const swiperRef = useRef(null);
@@ -144,11 +145,11 @@ const ReviewsCarousel = () => {
             }}
             className="reviews-swiper"
           >
-            {reviews.map((review) => (
-              <SwiperSlide key={review.id}>
+            {!loading && reviews && reviews.length > 0 && reviews.map((review) => (
+              <SwiperSlide key={review._id}>
                 <div 
-                  className={`review-card ${hoveredCard === review.id ? 'hovered' : ''} ${hoveredCard && hoveredCard !== review.id ? 'blurred' : ''}`}
-                  onMouseEnter={() => handleCardMouseEnter(review.id)}
+                  className={`review-card ${hoveredCard === review._id ? 'hovered' : ''} ${hoveredCard && hoveredCard !== review._id ? 'blurred' : ''}`}
+                  onMouseEnter={() => handleCardMouseEnter(review._id)}
                   onMouseLeave={handleCardMouseLeave}
                 >
                   <div className="review-content">

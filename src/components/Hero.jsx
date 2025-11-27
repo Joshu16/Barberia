@@ -1,10 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useSiteSettings } from '../hooks/useSanityData';
 import { useBooking } from '../contexts/BookingContext';
 import './Hero.css';
 
 const Hero = () => {
+  const { data: settings, loading } = useSiteSettings();
   const { openBookingModal } = useBooking();
+
+  // Valores por defecto si no hay datos de Sanity
+  const heroSubtitle = settings?.heroSubtitle || 'BARBERIA EXCELENCIA';
+  const heroTitle = settings?.heroTitle || 'Más que un corte, Una experiencia';
+  const heroDescription = settings?.heroDescription || 'Disfruta de la experiencia de grooming más relajada y profesional cada vez que entres a nuestra barbería.';
   
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -61,19 +68,19 @@ const Hero = () => {
               className="hero-subtitle"
               variants={itemVariants}
             >
-              BARBERIA EXCELENCIA
+              {heroSubtitle}
             </motion.div>
             <motion.h1 
               className="hero-title"
               variants={itemVariants}
             >
-              Más que un corte, Una experiencia
+              {heroTitle}
             </motion.h1>
             <motion.p 
               className="hero-description"
               variants={itemVariants}
             >
-              Disfruta de la experiencia de grooming más relajada y profesional cada vez que entres a nuestra barbería.
+              {heroDescription}
             </motion.p>
             <motion.div 
               className="hero-buttons"

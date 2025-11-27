@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useGalleryImages } from '../hooks/useSanityData';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useBooking } from '../contexts/BookingContext';
+import { LoadingState, EmptyState } from './LoadingState';
 import './Gallery.css';
 
 const Gallery = () => {
+  const { data: galleryData, loading } = useGalleryImages();
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,49 +16,35 @@ const Gallery = () => {
   const [galleryRef, isGalleryVisible] = useScrollAnimation(0.1);
   const { openBookingModal } = useBooking();
 
-  // Array de todas las imágenes de la galería
-  const galleryImages = [
-    {
-      src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&h=800&fit=crop&q=80",
-      alt: "Corte clásico",
-      thumbnail: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&h=400&fit=crop&q=80"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&h=800&fit=crop&q=80",
-      alt: "Barba premium",
-      thumbnail: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=200&h=200&fit=crop&q=80"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=800&fit=crop&q=80",
-      alt: "Corte moderno",
-      thumbnail: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=200&h=200&fit=crop&q=80"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&h=800&fit=crop&q=80",
-      alt: "Afeitado clásico",
-      thumbnail: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=200&h=400&fit=crop&q=80"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&h=800&fit=crop&q=80",
-      alt: "Tratamiento capilar",
-      thumbnail: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=200&h=200&fit=crop&q=80"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=800&fit=crop&q=80",
-      alt: "Corte + Barba",
-      thumbnail: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=200&h=200&fit=crop&q=80"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&h=800&fit=crop&q=80",
-      alt: "Estilo premium",
-      thumbnail: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=200&h=400&fit=crop&q=80"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&h=800&fit=crop&q=80",
-      alt: "Experiencia completa",
-      thumbnail: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=400&fit=crop&q=80"
+  // Transformar datos de Sanity al formato que usa el componente
+  const galleryImages = useMemo(() => {
+    if (!galleryData) {
+      console.log('🔴 No hay galleryData');
+      return [];
     }
-  ];
+    
+    const images = galleryData.map((item) => {
+      const imageUrl = item.imageUrl || item.image?.asset?.url || null;
+      const hasImage = imageUrl && imageUrl.trim() !== '';
+      console.log('🖼️ Gallery item:', { 
+        alt: item.alt, 
+        imageUrl, 
+        hasImage,
+        type: typeof imageUrl
+      });
+      // Usar la misma URL para src y thumbnail (Sanity maneja el tamaño automáticamente)
+      return {
+        src: imageUrl,
+        alt: item.alt || '',
+        thumbnail: imageUrl,
+        _id: item._id,
+        hasImage: hasImage
+      };
+    });
+    
+    console.log('✅ Total galleryImages:', images.length, 'Con imagen:', images.filter(i => i.hasImage).length);
+    return images;
+  }, [galleryData]);
 
   // Función para abrir el modal
   const openModal = (image, index) => {
@@ -164,102 +153,70 @@ const Gallery = () => {
             <h2 className="gallery-title">Nuestro trabajo habla por si solo</h2>
           </motion.div>
           
+          {loading && <LoadingState message="Cargando galería..." />}
+          {!loading && (!galleryImages || galleryImages.length === 0) && (
+            <EmptyState message="No hay imágenes en la galería. Sube imágenes desde el panel de Sanity." />
+          )}
+          {(() => {
+            if (!loading && galleryImages && galleryImages.length > 0) {
+              console.log('🎨 Renderizando galería con', galleryImages.length, 'items');
+              return (
           <motion.div 
             ref={galleryRef}
             className="gallery-masonry"
             variants={galleryVariants}
             initial="hidden"
-            animate={isGalleryVisible ? "visible" : "hidden"}
+            animate={isGalleryVisible ? "visible" : "visible"}
           >
-            <motion.div 
-              className="gallery-item gallery-item-large"
-              variants={itemVariants}
-            >
-              <img 
-                src={galleryImages[0].thumbnail} 
-                alt={galleryImages[0].alt}
-                onClick={() => openModal(galleryImages[0], 0)}
-                className="gallery-image"
-              />
-            </motion.div>
-            <motion.div 
-              className="gallery-item"
-              variants={itemVariants}
-            >
-              <img 
-                src={galleryImages[1].thumbnail} 
-                alt={galleryImages[1].alt}
-                onClick={() => openModal(galleryImages[1], 1)}
-                className="gallery-image"
-              />
-            </motion.div>
-            <motion.div 
-              className="gallery-item"
-              variants={itemVariants}
-            >
-              <img 
-                src={galleryImages[2].thumbnail} 
-                alt={galleryImages[2].alt}
-                onClick={() => openModal(galleryImages[2], 2)}
-                className="gallery-image"
-              />
-            </motion.div>
-            <motion.div 
-              className="gallery-item gallery-item-tall"
-              variants={itemVariants}
-            >
-              <img 
-                src={galleryImages[3].thumbnail} 
-                alt={galleryImages[3].alt}
-                onClick={() => openModal(galleryImages[3], 3)}
-                className="gallery-image"
-              />
-            </motion.div>
-            <motion.div 
-              className="gallery-item"
-              variants={itemVariants}
-            >
-              <img 
-                src={galleryImages[4].thumbnail} 
-                alt={galleryImages[4].alt}
-                onClick={() => openModal(galleryImages[4], 4)}
-                className="gallery-image"
-              />
-            </motion.div>
-            <motion.div 
-              className="gallery-item"
-              variants={itemVariants}
-            >
-              <img 
-                src={galleryImages[5].thumbnail} 
-                alt={galleryImages[5].alt}
-                onClick={() => openModal(galleryImages[5], 5)}
-                className="gallery-image"
-              />
-            </motion.div>
-            <motion.div 
-              className="gallery-item gallery-item-tall"
-              variants={itemVariants}
-            >
-              <img 
-                src={galleryImages[6].thumbnail} 
-                alt={galleryImages[6].alt}
-                onClick={() => openModal(galleryImages[6], 6)}
-                className="gallery-image"
-              />
-            </motion.div>
-            <motion.div 
-              className="gallery-item gallery-item-large"
-              variants={itemVariants}
-            >
-              <img 
-                src={galleryImages[7].thumbnail} 
-                alt={galleryImages[7].alt}
-                onClick={() => openModal(galleryImages[7], 7)}
-                className="gallery-image"
-              />
-            </motion.div>
+            {galleryImages.map((image, index) => {
+              // Determinar el tamaño de la imagen basado en su posición
+              let itemClass = 'gallery-item';
+              if (index === 0 || index === galleryImages.length - 1) {
+                itemClass += ' gallery-item-large';
+              } else if (index === 3 || index === 6) {
+                itemClass += ' gallery-item-tall';
+              }
+
+              return (
+                <motion.div 
+                  key={image._id || index}
+                  className={itemClass}
+                  variants={itemVariants}
+                  initial="visible"
+                  animate="visible"
+                >
+                  {image.hasImage ? (
+                    <img 
+                      src={image.thumbnail} 
+                      alt={image.alt}
+                      onClick={() => openModal(image, index)}
+                      className="gallery-image"
+                      onError={(e) => {
+                        console.error('Error loading image:', image.thumbnail);
+                        e.target.style.display = 'none';
+                        // Mostrar placeholder si la imagen falla
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'gallery-image-placeholder';
+                        placeholder.innerHTML = '<span>Error al cargar</span>';
+                        e.target.parentElement?.appendChild(placeholder);
+                      }}
+                    />
+                  ) : (
+                    <div className="gallery-image-placeholder">
+                      <span>Sin imagen</span>
+                      <small style={{ display: 'block', marginTop: '0.5rem', fontSize: '0.8rem', opacity: 0.5 }}>
+                        Sube desde Sanity
+                      </small>
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
           </motion.div>
+              );
+            }
+            return null;
+          })()}
           
           <motion.div 
             className="gallery-cta"
